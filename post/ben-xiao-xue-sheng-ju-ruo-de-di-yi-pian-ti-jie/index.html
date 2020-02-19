@@ -1,0 +1,262 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>本小学生蒟蒻的第一篇题解 | 张林铨的blog</title>
+<link rel="shortcut icon" href="https://zhanglinquan.github.io/favicon.ico?v=1582115599307">
+<link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://zhanglinquan.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="本小学生蒟蒻的第一篇题解 | 张林铨的blog - Atom Feed" href="https://zhanglinquan.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="这道题非常简单，~~为什么呢？~~因为老师讲的例题就是这个啊！
+OK，废话不多说，本小学生蒟蒻认为，用桶排序，俗称小学生排序（哪个老师取的坏好名字？），直接完成排序，在不管格内是几，就输出一个即可。
+why？见代码
+抄袭必CE
+//注释中的..." />
+    <meta name="keywords" content="题解" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://zhanglinquan.github.io">
+  <img class="avatar" src="https://zhanglinquan.github.io/images/avatar.png?v=1582115599307" alt="">
+  </a>
+  <h1 class="site-title">
+    张林铨的blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              本小学生蒟蒻的第一篇题解
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-01-28
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://zhanglinquan.github.io/tag/oeyg-RQE0" class="post-tag">
+                  # 题解
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>这道题非常简单，~~为什么呢？~~<s>因为老师讲的例题就是这个啊！</s></p>
+<p>OK，废话不多说，本小学生蒟蒻认为，用桶排序，俗称小学生排序（哪个老师取的<s>坏</s>好名字？），直接完成排序，在不管格内是几，就输出一个即可。</p>
+<p>why？见代码<br>
+抄袭必CE</p>
+<pre><code class="language-cpp">//注释中的代码是在a数组为bool情况下使用的
+#include&lt;bits/stdc++.h&gt;//万能头，不用白不用
+using namespace std;
+int a[10000000];//之所以不用bool是因为代码要有通用性，直接用模板（bool a[10000000]
+int main(){
+    int n,s=0;//n是输入个数，s是输出个数
+  	bool f=false;//是否为第一个输出（防止多空格
+    int x;
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;i++){
+        cin&gt;&gt;x;
+        a[x]++;//a[x]=!a[x]
+    }
+    for(int i=1;i&lt;=1000;i++){//1000是指最大数为1000（数组中记的是数字i的存在情况，而存在的最大数为1000）
+        if(a[i])//有这个数
+            s++；
+    }
+    cout&lt;&lt;s&lt;&lt;endl;
+    for(int i=1;i&lt;=1000;i++){
+        if(a[i]){//有这个数
+            if(f==0){//是第一个
+                cout&lt;&lt;i;
+                f=！f；
+            }
+            else
+                cout&lt;&lt;&quot; &quot;&lt;&lt;i;
+        }
+    }
+    cout&lt;&lt;endl;
+    return 0;
+}
+
+</code></pre>
+<p>e.g</p>
+<p>来模拟一下程序是如何工作的</p>
+<p>输入：8</p>
+<p>1 1 1 2 3 3 6 5</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">i</th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">a[i]</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>目前程序执行了第一个循环</p>
+<p>开始第二个循环</p>
+<p>i=1 a[i]=true s++ s=1</p>
+<p>i=2 a[i]=true s++ s=2</p>
+<p>i=3 a[i]=true s++ s=3</p>
+<p>i=4 a[i]=false 啥也不干</p>
+<p>i=5 a[i]=true s++ s=4</p>
+<p>i=6 a[i]=true s++ s=5</p>
+<p>i=7 a[i]=false 啥也不干</p>
+<p>略（都是啥也不干）</p>
+<p>开始第三个循环<br>
+i=1 f=false a[i]=true 输出i f=true</p>
+<p>i=2 f=true a[i]=true 输出i</p>
+<p>i=3 f=true a[i]=true 输出i</p>
+<p>i=4 f=true a[i]=false 啥也不干</p>
+<p>i=5 f=true a[i]=true 输出i</p>
+<p>i=6 f=true a[i]=true 输出i</p>
+<p>i=7 a[i]=false 啥也不干</p>
+<p>略（都是啥也不干）</p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://zhanglinquan.github.io/post/递归">
+              <h3 class="post-title">
+                递归
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://zhanglinquan.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
