@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhanglinquan.github.io</id>
     <title>张林铨的blog</title>
-    <updated>2020-02-20T09:34:30.524Z</updated>
+    <updated>2020-02-21T03:36:51.610Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhanglinquan.github.io"/>
     <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
@@ -75,7 +75,8 @@ int main(){
 <p><s>还是30pts，我太难了</s><br>
 但这个时候, 我们的程序已经不依赖任何外部变量了.</p>
 <p>然后我非常无聊, 将所有 dfs 的返回值都记录下来, 竟然发现......</p>
-<h3 id="震惊-对于相同的-pos-和-tleftdfs-的返回值总是相同的">震惊, 对于相同的 pos 和 tleft,dfs 的返回值总是相同的!</h3>
+<pre><code>震惊, 对于相同的 pos 和 tleft,dfs 的返回值总是相同的!
+</code></pre>
 <p>想一想也不奇怪, 因为我们的 dfs 没有依赖任何外部变量.</p>
 <p>旁白: 像 tcost[103],mget[103] 这种东西不算是外部变量, 因为她们在 dfs 过程中不变.</p>
 <p>然后?</p>
@@ -108,7 +109,7 @@ int main(){
 </code></pre>
 <p>这能 ac?</p>
 <p>能. 这就是 &quot;采药&quot; 那题的 AC 代码</p>
-<p>好我们 yy 出了记忆化搜索</p>
+<p>好我们倒腾出了记忆化搜索</p>
 <p>总结一下记忆化搜索是啥:<br>
 不依赖任何 外部变量，答案以返回值的形式存在, 而不能以参数的形式存在(就是不能将 dfs 定义成 dfs(pos,tleft,nowans ), 这里面的 nowans 不符合要求).</p>
 <p>对于相同一组参数, dfs 返回值总是相同的</p>
@@ -121,9 +122,9 @@ int main(){
 <p>在时间 tleft 内采集 后 pos 个草药, 能获得的最大收益</p>
 <p>这不就是dp的状态?</p>
 <p>由上面的代码中可以看出:</p>
-<p>dfs(pos,left) = max(dfs(pos+1,tleft-tcost[pos])+mget[pos]\ ,\ dfs(pos+1,tleft)<br>
+<p>dfs(pos,left) = max(dfs(pos+1,tleft-tcost[pos])+mget[pos] , dfs(pos+1,tleft))<br>
 即为</p>
-<p>mem[pos][tleft] = max(mem[pos+1][tleft-tcost[pos]]+mget[pos]\ ,\ mem[pos+1][tleft])<br>
+<p>mem[pos][tleft] = max(mem[pos+1][tleft-tcost[pos]]+mget[pos] , mem[pos+1][tleft])<br>
 这不就是dp的状态转移?</p>
 <p>总结一下：</p>
 <pre><code>记忆化搜索和动态规划从根本上来讲就是一个东西,**(印象中)任何一个 dp 方程都能转为记忆化搜索 ，反之亦然（为什么？见下文“体现在”的第四条）
