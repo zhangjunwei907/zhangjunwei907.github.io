@@ -1,22 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://zhanglinquan.github.io</id>
-    <title>张林铨的blog</title>
-    <updated>2020-03-04T13:14:12.404Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://zhanglinquan.github.io"/>
-    <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://zhanglinquan.github.io/images/avatar.png</logo>
-    <icon>https://zhanglinquan.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, 张林铨的blog</rights>
-    <entry>
-        <title type="html"><![CDATA[C++中的endl（面向对象初体验）]]></title>
-        <id>https://zhanglinquan.github.io/post/czhong-de-endlmian-xiang-dui-xiang-chu-ti-yan</id>
-        <link href="https://zhanglinquan.github.io/post/czhong-de-endlmian-xiang-dui-xiang-chu-ti-yan">
-        </link>
-        <updated>2020-03-04T12:54:59.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="1-endl的本质">1. endl的本质</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>C++中的endl（面向对象初体验） | 张林铨的blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zhanglinquan.github.io/favicon.ico?v=1583327608199">
+<link rel="stylesheet" href="https://zhanglinquan.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1. endl的本质
+自从在C语言的教科书中利用Hello world程序作为学习的起点之后，很多程序设计语言的教科书都沿用了这个做法。我们写过的第一个C++程序可能就是这样的。
+
+#include &lt;iostream&gt;
+usi..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zhanglinquan.github.io">
+        <img src="https://zhanglinquan.github.io/images/avatar.png?v=1583327608199" class="site-logo">
+        <h1 class="site-title">张林铨的blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      求关注！ | <a class="rss" href="https://zhanglinquan.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">C++中的endl（面向对象初体验）</h2>
+            <div class="post-date">2020-03-04</div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="1-endl的本质">1. endl的本质</h1>
 <p>自从在C语言的教科书中利用Hello world程序作为学习的起点之后，很多程序设计语言的教科书都沿用了这个做法。我们写过的第一个C++程序可能就是这样的。</p>
 <pre><code class="language-cpp">
 #include &lt;iostream&gt;
@@ -96,287 +184,80 @@ cout&lt;&lt;i&lt;&lt;endl;
 <pre><code class="language-cpp">cout&lt;&lt;hex&lt;&lt;i&lt;&lt;endl;
 </code></pre>
 <p>可以看出采用格式操纵符比较方便，二者的区别主要在于：格式成员函数是标准输出对象<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>u</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cout</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span></span></span></span>的成员函数，因此在使用时必须和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>u</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">cout</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span></span></span></span>同时出现，而操纵符是自由函数，可以独立出现，使用格式成员函数要显示采用函数调用的形式，不能用IO运算符”&lt;&lt;”和”&gt;&gt;”形成链式操作。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[从记忆化搜索到DP（动态规划）]]></title>
-        <id>https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua</id>
-        <link href="https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua">
-        </link>
-        <updated>2020-02-19T13:01:57.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="目录">目录</h1>
-<ul>
-<li>记忆化搜索是啥</li>
-<li>记忆化搜索和动态规划有啥关系</li>
-<li>动态规划做法</li>
-</ul>
-<h1 id="1-记忆化搜索是啥引入">1. 记忆化搜索是啥（引入</h1>
-<p>好，就以采药这道题为例，我不会动态规划，只会搜索，我就会直接写一个粗暴的 DFS :</p>
-<p>注: 为了方便食用, 本文中所有代码省略头文件</p>
-<pre><code class="language-cpp">int n,t;
-int tcost[103],mget[103];
-int ans=0;
-void dfs(int pos,int tleft,int tans){
-    if(tleft&lt;0) return;
-    if(pos==n+1){
-        ans=max(ans,tans);
-        return;
-    }
-    dfs(pos+1,tleft,tans);
-    dfs(pos+1,tleft-tcost[pos],tans+mget[pos]);
-}
-int main(){
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    dfs(1,t,0);
-    cout&lt;&lt;ans&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p>30pts</p>
-<p>然后我心血来潮, 想不借助任何 &quot;外部变量&quot;(就是 dfs 函数外且 值随 dfs 运行而改变的变量 ), 比如 ans</p>
-<p>把 ans 删了之后就有一个问题: 我们拿什么来记录答案?</p>
-<p>答案很简单:</p>
-<p>返回值!</p>
-<p>此时 dfs(pos,tleft) 返回在时间 tleft内采集 后 pos 个草药, 能获得的最大收益</p>
-<p>不理解就看看代码吧:</p>
-<pre><code class="language-cpp">int n,time;
-int tcost[103],mget[103];
-int dfs(int pos,int tleft){
-    if(pos==n+1)
-        return 0;
-    int dfs1,dfs2=-INF;
-    dfs1=dfs(pos+1,tleft);
-    if( tleft&gt;tcost[pos] )
-        dfs2=dfs(pos+1,tleft-tcost[pos])+mget[pos];
-    return max(dfs1,dfs2);
-}
-int main(){
-    cin&gt;&gt;time&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    cout&lt;&lt;dfs(1,time)&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p><s>还是30pts，我太难了</s><br>
-但这个时候, 我们的程序已经不依赖任何外部变量了.</p>
-<p>然后我非常无聊, 将所有 dfs 的返回值都记录下来, 竟然发现......</p>
-<pre><code>震惊, 对于相同的 pos 和 tleft,dfs 的返回值总是相同的!
-</code></pre>
-<p>想一想也不奇怪, 因为我们的 dfs 没有依赖任何外部变量.</p>
-<p>旁白: 像 tcost[103],mget[103] 这种东西不算是外部变量, 因为她们在 dfs 过程中不变.</p>
-<p>然后?</p>
-<p>开个数组 mem , 记录下来每个 dfs(pos,tleft) 的返回值. 刚开始把 mem 中每个值都设成 -1 (代表没访问过). 每次刚刚进入一个 dfs 前(我们的 dfs 是递归调用的嘛), 都检测 mem[pos][tleft]是否为 -1 , 如果是就正常执行并把答案记录到 mem 中, 否则?</p>
-<p>直接返回 mem 中的值!</p>
-<pre><code class="language-cpp">int n,t;
-int tcost[103],mget[103];
-int mem[103][1003];
-int dfs(int pos,int tleft){
-    if(mem[pos][tleft]!=-1) return mem[pos][tleft];
-    if(pos==n+1)
-        return mem[pos][tleft] = 0;
-    int dfs1,dfs2=-INF;
-    dfs1 = dfs(pos+1,tleft);
-    if(tleft&gt;=tcost[pos])
-        dfs2=dfs(pos+1,tleft-tcost[pos])+mget[pos];
-    return mem[pos][tleft]=max(dfs1,dfs2);
-}
-int main(){
-    memset(mem,-1,sizeof(mem));
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    cout&lt;&lt;dfs(1,t)&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p>此时 mem 的意义与 dfs 相同：</p>
-<pre><code>在时间 tleft内采集 后 pos 个草药, 能获得的最大收益
-</code></pre>
-<p>这能 ac?</p>
-<p>能. 这就是 &quot;采药&quot; 那题的 AC 代码</p>
-<p>好我们倒腾出了记忆化搜索</p>
-<p>总结一下记忆化搜索是啥:<br>
-不依赖任何 外部变量，答案以返回值的形式存在, 而不能以参数的形式存在(就是不能将 dfs 定义成 dfs(pos,tleft,nowans ), 这里面的 nowans 不符合要求).</p>
-<p>对于相同一组参数, dfs 返回值总是相同的</p>
-<h1 id="记忆化搜索与动态规划的关系分析">记忆化搜索与动态规划的关系:（分析</h1>
-<p>基本是朋 (ji) 友关系</p>
-<p>有人会问: 记忆化搜索难道不是搜索?</p>
-<p>一定程度上来说，她是搜索.但个人认为她更像dp</p>
-<p>其实说白了，记忆化搜索就是dp</p>
-<p>不信你看mem 的意义:</p>
-<p>在时间 tleft 内采集 后 pos 个草药, 能获得的最大收益</p>
-<p>这不就是dp的状态?</p>
-<p>由上面的代码中可以看出:</p>
-<p>dfs(pos,left) = max(dfs(pos+1,tleft-tcost[pos])+mget[pos] , dfs(pos+1,tleft))<br>
-即为</p>
-<p>mem[pos][tleft] = max(mem[pos+1][tleft-tcost[pos]]+mget[pos] , mem[pos+1][tleft])<br>
-这不就是dp的状态转移?</p>
-<p>总结一下：</p>
-<pre><code>记忆化搜索和动态规划从根本上来讲就是一个东西,**(印象中)任何一个 dp 方程都能转为记忆化搜索 ，反之亦然（为什么？见下文“体现在”的第四条）
-</code></pre>
-<p>体现在</p>
-<ul>
-<li>
-<p>根据记忆化搜索的参数可以直接得到dp的状态，反之亦然</p>
-</li>
-<li>
-<p>根据记忆化搜索的递归关系可以写出状态转移方程，这个方程可以直接写出循环式的dp，只不过是反的(想想为什么？)，反之亦然</p>
-</li>
-<li>
-<p>大部分记忆化搜索时空复杂度与 不加优化的 dp 完全相同</p>
-</li>
-<li>
-<p><strong>最重要的一点：二者思想类似！！ 核心思想均为：利用对于相同参数答案相同的特性，对于相同的参数（循环式的dp体现为数组下标），记录其答案，免去重复计算，从而起到优化时间复杂度的作用。这，便是二者的精髓。</strong></p>
-</li>
-</ul>
-<p>建议好好想想第四条。记住，学一个算法，一定要理解他的精髓。</p>
-<p>举个栗子:</p>
-<p>dp[i][j][k] = dp[i+1][j+1][k-a[j]] + dp[i+1][j][k]<br>
-转为</p>
-<pre><code class="language-cpp">int dfs(int i,int j,int k){
-    边界条件
-    if( mem[i][j][k]!=-1) return mem[i][j][k];
-    return mem[i][j][k]=dfs(i+1,j+1,k-a[j])+dfs(i+1,j,k);
-}
-int main(){
-    memset(mem,-1,sizeof(mem));
-    读入
-    cout&lt;&lt;dfs(1,0,0)&lt;&lt;endl;
-}
-</code></pre>
-<p>二者满足上面提到的所有关系</p>
-<h1 id="dp做法">dp做法</h1>
-<p><s>上面转移方程都出来了，还不会？？</s></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cmath&gt;
-using namespace std;
-int f[1001],n,t,v[101],w[101];
-int main(){
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;w[i]&gt;&gt;v[i];
-    }
-    for(int i=1;i&lt;=n;i++){
-        for(int j=t;j&gt;=w[i];j--) {
-            f[j]=max(f[j-w[i]]+v[i], f[j]);
-        }
-    }
-    cout&lt;&lt;f[t];
-    return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[本小学生蒟蒻的第一篇题解]]></title>
-        <id>https://zhanglinquan.github.io/post/ben-xiao-xue-sheng-ju-ruo-de-di-yi-pian-ti-jie</id>
-        <link href="https://zhanglinquan.github.io/post/ben-xiao-xue-sheng-ju-ruo-de-di-yi-pian-ti-jie">
-        </link>
-        <updated>2020-01-28T12:27:30.000Z</updated>
-        <content type="html"><![CDATA[<p>这道题非常简单，~~为什么呢？~~<s>因为老师讲的例题就是这个啊！</s></p>
-<p>OK，废话不多说，本小学生蒟蒻认为，用桶排序，俗称小学生排序（哪个老师取的<s>坏</s>好名字？），直接完成排序，在不管格内是几，就输出一个即可。</p>
-<p>why？见代码<br>
-抄袭必CE</p>
-<pre><code class="language-cpp">//注释中的代码是在a数组为bool情况下使用的
-#include&lt;bits/stdc++.h&gt;//万能头，不用白不用
-using namespace std;
-int a[10000000];//之所以不用bool是因为代码要有通用性，直接用模板（bool a[10000000]
-int main(){
-    int n,s=0;//n是输入个数，s是输出个数
-  	bool f=false;//是否为第一个输出（防止多空格
-    int x;
-    cin&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;x;
-        a[x]++;//a[x]=!a[x]
-    }
-    for(int i=1;i&lt;=1000;i++){//1000是指最大数为1000（数组中记的是数字i的存在情况，而存在的最大数为1000）
-        if(a[i])//有这个数
-            s++；
-    }
-    cout&lt;&lt;s&lt;&lt;endl;
-    for(int i=1;i&lt;=1000;i++){
-        if(a[i]){//有这个数
-            if(f==0){//是第一个
-                cout&lt;&lt;i;
-                f=！f；
-            }
-            else
-                cout&lt;&lt;&quot; &quot;&lt;&lt;i;
-        }
-    }
-    cout&lt;&lt;endl;
-    return 0;
-}
 
-</code></pre>
-<p>e.g</p>
-<p>来模拟一下程序是如何工作的</p>
-<p>输入：8</p>
-<p>1 1 1 2 3 3 6 5</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">i</th>
-<th style="text-align:left">1</th>
-<th style="text-align:left">2</th>
-<th style="text-align:left">3</th>
-<th style="text-align:left">4</th>
-<th style="text-align:left">5</th>
-<th style="text-align:left">6</th>
-<th style="text-align:left">7</th>
-<th style="text-align:left">8</th>
-<th style="text-align:left"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a[i]</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<p>目前程序执行了第一个循环</p>
-<p>开始第二个循环</p>
-<p>i=1 a[i]=true s++ s=1</p>
-<p>i=2 a[i]=true s++ s=2</p>
-<p>i=3 a[i]=true s++ s=3</p>
-<p>i=4 a[i]=false 啥也不干</p>
-<p>i=5 a[i]=true s++ s=4</p>
-<p>i=6 a[i]=true s++ s=5</p>
-<p>i=7 a[i]=false 啥也不干</p>
-<p>略（都是啥也不干）</p>
-<p>开始第三个循环<br>
-i=1 f=false a[i]=true 输出i f=true</p>
-<p>i=2 f=true a[i]=true 输出i</p>
-<p>i=3 f=true a[i]=true 输出i</p>
-<p>i=4 f=true a[i]=false 啥也不干</p>
-<p>i=5 f=true a[i]=true 输出i</p>
-<p>i=6 f=true a[i]=true 输出i</p>
-<p>i=7 a[i]=false 啥也不干</p>
-<p>略（都是啥也不干）</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[递归]]></title>
-        <id>https://zhanglinquan.github.io/post/递归</id>
-        <link href="https://zhanglinquan.github.io/post/递归">
-        </link>
-        <updated>2019-10-24T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p>这节课学了递归，<s>好晕</s></p>
-<p>好不容易想通了一点赶紧记下，充当第一篇博客</p>
-<p>递归就是函数自己调用自己的过程。那为什么要有递归呢？原因很简单：在解决一个问题的同时，需要解决另一个与当前问题相同的问题，并且这个问题在特定情况下有解（递归结束条件），其他情况的答案都可由此答案推导而来（转移方程）。那又有问题了，为什么不用循环呢？观察上面的描述中“需要解决另一个与当前问题相同的问题”这一句话，真的只需要解决另一个吗？答案是否定的，有可能要解决多个同样的问题，这种情况下，如果使用循环，那么每个循环都要产生多个同样的循环，是无法实现的，所以才要使用递归。</p>
-]]></content>
-    </entry>
-</feed>
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua">
+                  <h3 class="post-title">
+                    从记忆化搜索到DP（动态规划）
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
