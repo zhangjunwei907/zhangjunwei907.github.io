@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>第一次做工程的成果 | 张林铨的blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zhanglinquan.github.io/favicon.ico?v=1583410403312">
+<link rel="stylesheet" href="https://zhanglinquan.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="也算是在彻底转macOS之前给自己留下纪念吧，也许是OI历程中为数不多的WIN32程序。（现在才小学，写这么伤感干哈子？？？）
+/*
+坑点大全：
+1.地图是25*25的，不是27*27的
+2.x,y是行，列，不是列，行（可能某些地方做了转换..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zhanglinquan.github.io">
+        <img src="https://zhanglinquan.github.io/images/avatar.png?v=1583410403312" class="site-logo">
+        <h1 class="site-title">张林铨的blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      求关注！ | <a class="rss" href="https://zhanglinquan.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">第一次做工程的成果</h2>
+            <div class="post-date">2020-03-05</div>
+            
+            <div class="post-content" v-pre>
+              <p>也算是在彻底转macOS之前给自己留下纪念吧，也许是OI历程中为数不多的WIN32程序。（现在才小学，写这么伤感干哈子？？？）</p>
+<pre><code class="language-cpp">/*
+坑点大全：
+1.地图是25*25的，不是27*27的
+2.x,y是行，列，不是列，行（可能某些地方做了转换） 
+3.p1在代码中还记作p1，但p2记作p0
+4.p2(p0)代码中变量为p1的后面加数字1
+5.重要！！重要！！！！重要！！！这个程序分4个线程，分别是打印地图，main函数，p1键盘侦测，p2（p0）键盘侦测
+6.原来想做的事战略游戏（放置方块）（像皇室战争）所以障碍才分1-4，1、2归P1，3、4归P2，后来改成走迷宫，添加了6目标方块，还可以放障碍（1-4），后来变成放地雷，再变成自动生成地雷，最后水平不足，变成
+自动生成障碍。
+7.请未来的自己帮忙，其实自动行走是bug。（2020.1.25） 
+*/ 
+#include&lt;bits/stdc++.h&gt;
+#include&lt;windows.h&gt; 
+#include&lt;time.h&gt;
+COORD coord;
+using namespace std;
+const int mapx=27;
+bool stop=false;
+int maps[mapx][mapx];
+HANDLE hCon;
+int p1ott,p1btt,p2ott,p2btt,pn=1,x=2,y=2,ops,ops1,x1=2,y1=2;
+enum Color {DARKBLUE=1,DARKGREEN,DARKTEAL,DARKRED,DARKPINK,DARKYELLOW,GRAY,DARKGRAY,BLUE,GREEN,TEAL,RED,PINK,YELLOW,WHITE};
+void window(){
+	HANDLE handle=GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO CursorInfo;
+	GetConsoleCursorInfo(handle,&amp;CursorInfo);
+	CursorInfo.bVisible=false;
+	SetConsoleCursorInfo(handle,&amp;CursorInfo); 
+}
+void SetColor(Color c){
+    if(hCon==NULL)
+    	hCon=GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hCon,c);
+}
+void GoToxy(int x,int y){
+    coord.X=x;
+    coord.Y=y;
+    HANDLE a=GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleCursorPosition(a,coord);
+}
+int clrscr(){ 
+	HANDLE hndl=GetStdHandle(STD_OUTPUT_HANDLE); 
+	CONSOLE_SCREEN_BUFFER_INFO csbi; 
+	GetConsoleScreenBufferInfo(hndl,&amp;csbi); 
+	DWORD written; 
+	DWORD N=csbi.dwSize.X*csbi.dwCursorPosition.Y+csbi.dwCursorPosition.X+1; 
+	COORD curhome={0,0}; 
+	FillConsoleOutputCharacter(hndl,' ',N,curhome,&amp;written); 
+	csbi.srWindow.Bottom-=csbi.srWindow.Top; 
+	csbi.srWindow.Top=0; 
+	SetConsoleWindowInfo(hndl,TRUE,&amp;csbi.srWindow); 
+	SetConsoleCursorPosition(hndl,curhome); 
+	return 0; 
+}
+char keyboard(){
+	if (GetAsyncKeyState(VK_UP)&amp;0x8000)  
+		return 'w';
+    else if (GetAsyncKeyState(VK_DOWN)&amp;0x8000)  
+		return 's';
+    else if (GetAsyncKeyState(VK_LEFT)&amp;0x8000)
+        return 'a';
+    else if (GetAsyncKeyState(VK_RIGHT)&amp;0x8000)  
+        return 'd';
+    else if (GetAsyncKeyState(VK_NUMPAD8)&amp;0x8000)  
+        return 'i';
+    else if (GetAsyncKeyState(VK_NUMPAD5)&amp;0x8000)  
+    	return 'k';
+    else if (GetAsyncKeyState(VK_NUMPAD4)&amp;0x8000)
+        return 'j';
+    else if (GetAsyncKeyState(VK_NUMPAD6)&amp;0x8000)  
+        return 'l';
+}
+char to_ch_map(int n){
+	switch(n){
+		case 0:return '.';
+		case 1:return '@';
+		case 2:return '#';
+		case 3:return '$';
+		case 4:return '%';
+		case 5:return '=';
+		case 6:return '*';
+		case 7:return '&amp;';
+	}
+}
+void outputmap(){
+	int c;
+	char c2;
+	char op;
+	for(int i=1;i&lt;mapx;i++){
+		for(int j=1;j&lt;mapx;j++){
+			GoToxy(j,i);
+			c=maps[i][j];
+			c2=to_ch_map(c);
+			if(maps[i][j]==5||maps[i][j]==7){
+				SetColor(RED);
+			}
+			printf(&quot;%c&quot;,c2);
+			SetColor(YELLOW);
+		}
+		printf(&quot;\n&quot;);
+	}
+}
+void p1(){
+	char op;
+	int oops=ops;
+	int ox=1,oy=1,th;
+	ox=x;oy=y;
+	op=keyboard();
+	switch(op){
+		case 'w':x--;ops=0;break;
+		case 's':x++;ops=0;break;
+		case 'a':y--;ops=0;break;
+		case 'd':y++;ops=0;break;
+	}
+	if(maps[x][y]!=0&amp;&amp;maps[x][y]!=6){
+		x=ox;
+		y=oy;
+	}
+	if(oops==0&amp;&amp;ops==0) maps[ox][oy]=0;
+	if(ops==0) maps[x][y]=5;
+}
+void p2(){
+	char op1;
+	int oops1=ops1;
+	int ox1=1,oy1=1,th1;
+	ox1=x1;oy1=y1;
+	op1=keyboard();
+	switch(op1){
+		case 'i':x1--;ops=0;break;
+		case 'k':x1++;ops=0;break;
+		case 'j':y1--;ops=0;break;
+		case 'l':y1++;ops=0;break;
+	}
+	if(maps[x1][y1]!=0&amp;&amp;maps[x1][y1]!=6){
+		x1=ox1;
+		y1=oy1;
+	}
+	if(oops1==0&amp;&amp;ops1==0) maps[ox1][oy1]=0;
+	if(ops1==0) maps[x1][y1]=7;
+}
+void start(){
+	srand(time(0));
+	memset(maps,rand(),sizeof(maps));
+	memset(maps,0,sizeof(maps));
+	maps[11][11]=6;
+	maps[10][1]=1;
+	maps[11][1]=1;
+	maps[8][2]=1;
+	maps[13][2]=1;
+	maps[10][mapx-2]=1;
+	maps[11][mapx-2]=1;
+	maps[8][mapx-1]=1;
+	maps[13][mapx-1]=1;
+	maps[11][10]=2;
+	maps[11][12]=2;
+	maps[10][11]=2;
+	for(int i=1;i&lt;=mapx-1;i++){
+		maps[1][i]=2;
+		maps[i][1]=2;
+	}
+	for(int i=1;i&lt;=mapx-1;i++){
+		maps[i][mapx-1]=2;
+		maps[mapx-1][i]=2;
+	}
+	srand(time(0));
+	for(int i=1;i&lt;mapx-1;i++){
+		for(int j=1;j&lt;mapx-1;j++){
+			if(j==11||i==11) continue;
+			if(rand()%10==0) maps[i][j]==4;
+			if(rand()%13==0) maps[i][j]=1;
+			if(rand()%75==0) maps[i][j]=3;
+		}
+	}
+}
+void th1(){
+	while(!stop){
+		outputmap();
+	}
+	clrscr();
+	system(&quot;color C4&quot;);
+}
+void th2(){
+	while(!stop){
+		p2();
+		Sleep(100);
+	}
+	clrscr();
+	system(&quot;color C4&quot;);
+}
+void th3(){
+	while(!stop){
+		p1();
+		Sleep(100);
+	}
+	clrscr();
+	system(&quot;color C4&quot;);
+}
+int main(){
+	window();
+	start();
+	thread t(&amp;th1);
+	thread t1(&amp;th2);
+	thread t3(&amp;th3);
+	while(!stop){
+		if(maps[11][11]!=5&amp;&amp;maps[11][11]!=7&amp;&amp;maps[11][11]!=6){
+			maps[11][11]=6;
+			cout&lt;&lt;&quot;this block must be 6!!&quot;&lt;&lt;endl;
+		}
+		if(maps[11][11]==5){
+			stop=!stop;
+			clrscr();
+			Sleep(1000);
+			system(&quot;color 07&quot;);
+			cout&lt;&lt;&quot;p1 WIN&quot;&lt;&lt;endl;
+			system(&quot;pause&quot;);
+			exit(0);
+		}
+		if(maps[11][11]==7){
+			stop=!stop;
+			clrscr();
+			Sleep(1000);
+			system(&quot;color 07&quot;);
+			cout&lt;&lt;&quot;p2 WIN&quot;&lt;&lt;endl;
+			system(&quot;pause&quot;);
+			exit(0);
+		}
+	}
+	return 0;
+}
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zhanglinquan.github.io/post/czhong-de-endlmian-xiang-dui-xiang-chu-ti-yan">
+                  <h3 class="post-title">
+                    C++中的endl（面向对象初体验）
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
