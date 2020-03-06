@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>递归 | 张林铨的blog</title>
+<title>关于BFS | 张林铨的blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,9 +24,12 @@
 
 
 
-    <meta name="description" content="这节课学了递归，好晕
-好不容易想通了一点赶紧记下，充当第一篇博客
-递归就是函数自己调用自己的过程。那为什么要有递归呢？原因很简单：在解决一个问题的同时，需要解决另一个与当前问题相同的问题，并且这个问题在特定情况下有解（递归结束条件），其他情..." />
+    <meta name="description" content="他死了
+BFS，即宽度优先搜索（balabala不讲无意义内容）
+核心：用一个队列来记录“待办事项”，用最短路来举个例子，代码如下
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int..." />
     <meta name="keywords" content="学习笔记" />
   </head>
   <body>
@@ -98,13 +101,108 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">递归</h2>
-            <div class="post-date">2019-10-25</div>
+            <h2 class="post-title">关于BFS</h2>
+            <div class="post-date">2020-03-06</div>
             
             <div class="post-content" v-pre>
-              <p>这节课学了递归，<s>好晕</s></p>
-<p>好不容易想通了一点赶紧记下，充当第一篇博客</p>
-<p>递归就是函数自己调用自己的过程。那为什么要有递归呢？原因很简单：在解决一个问题的同时，需要解决另一个与当前问题相同的问题，并且这个问题在特定情况下有解（递归结束条件），其他情况的答案都可由此答案推导而来（转移方程）。那又有问题了，为什么不用循环呢？观察上面的描述中“需要解决另一个与当前问题相同的问题”这一句话，真的只需要解决另一个吗？答案是否定的，有可能要解决多个同样的问题，这种情况下，如果使用循环，那么每个循环都要产生多个同样的循环，是无法实现的，所以才要使用递归。</p>
+              <p><s>他死了</s><br>
+BFS，即宽度优先搜索（balabala不讲无意义内容）<br>
+核心：用一个队列来记录“待办事项”，用最短路来举个例子，代码如下</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int dx[5]={0,1,0,0,-1};
+int dy[5]={0,0,-1,1,0};
+int a[1001][1001],q[250000][10];
+int sx,sy,ex,ey;
+void input(int n,int m){
+	char tmp;
+	memset(a,-1,sizeof(a));
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;=m;j++){
+			cin&gt;&gt;tmp;
+			if(tmp=='.') a[i][j]=0;
+			if(tmp=='#') a[i][j]=-1;
+			if(tmp=='*'){
+				a[i][j]=0;
+				ex=i;
+				ey=j;
+			}
+			if(tmp=='@'){
+				a[i][j]=0;
+				sx=i;
+				sy=j;
+			}
+		}
+	}
+}
+int main(){
+	int h=1,t=1,n,m;
+	cin&gt;&gt;n&gt;&gt;m;
+	input(n,m);
+	q[1][0]=0;
+	q[1][1]=sx;//初始化“待办事项
+	q[1][2]=sy;//同上
+	a[1][1]=-1;
+	while(h&lt;=t){
+		if(q[h][1]==ex&amp;&amp;q[h][2]==ey){//达到目标
+			cout&lt;&lt;q[h][0]&lt;&lt;endl;
+			return 0;
+		}
+		for(int i=1;i&lt;=4;i++){
+			int x,y;
+			x=q[h][1]+dx[i];//拿到事情
+			y=q[h][2]+dy[i];//同上
+			if(a[x][y]==0){//做事
+				t++;
+				q[t][0]=q[h][0]+1;//产生新事
+				q[t][1]=x;//同上
+				q[t][2]=y;//同上
+				a[x][y]=-1;
+			}
+		}
+		h++;//做完了一件事
+	}
+    //无解
+	return 0;
+}
+</code></pre>
+<p>这里面没有用STL中的queue，但原理相同。<br>
+代码中每次穷举的是步数（即离终点的距离），一次while穷举一个步数。<br>
+可以看到，队列在while循环做完之前不为空（即有效解一定在穷举完所有步数之前得到），所以BFS的解一般是在循环内产生。<br>
+然后，我们用深搜（DFS）来实现一下</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int a[105][105],d[105][105],n,m;
+void dg(int dep,int i,int j){
+	if(dep&lt;d[i][j]&amp;&amp;dep&lt;200){
+		d[i][j]=dep;
+		if(a[i][j+1]==0) dg(dep+1,i,j+1);
+		if(a[i+1][j]==0) dg(dep+1,i+1,j);
+		if(a[i][j-1]==0) dg(dep+1,i,j-1);
+		if(a[i-1][j]==0) dg(dep+1,i-1,j);
+	}
+}
+void input(int n,int m){
+	char tmp;
+	memset(a,-1,sizeof(a));
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;=m;j++){
+			cin&gt;&gt;tmp;
+			if(tmp=='.') a[i][j]=0;
+			if(tmp=='#') a[i][j]=-1;
+			d[i][j]=INT_MAX;
+		}
+	}
+}
+int main(){
+	cin&gt;&gt;n&gt;&gt;m;
+	input(n,m);
+	dg(1,1,1);
+	cout&lt;&lt;d[n][m]&lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+<p>可以发现，DFS慢在于需要回溯，而且不做到底不回头，举个例子，正确路径是右右右右，而DFS永远先穷举左，产生大量无意义劳动，而BFS只需要循环4*4=16次，速度进步巨大。（所以DFS要加玄学限制:dep&lt;200）</p>
 
             </div>
             
@@ -116,6 +214,15 @@
                 
               </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zhanglinquan.github.io/post/di-yi-ci-zuo-gong-cheng-de-cheng-guo">
+                  <h3 class="post-title">
+                    第一次做工程的成果
+                  </h3>
+                </a>
+              </div>
             
 
             
