@@ -1,22 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://zhanglinquan.github.io</id>
-    <title>张林铨的blog</title>
-    <updated>2020-03-13T05:55:50.831Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://zhanglinquan.github.io"/>
-    <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://zhanglinquan.github.io/images/avatar.png</logo>
-    <icon>https://zhanglinquan.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, 张林铨的blog</rights>
-    <entry>
-        <title type="html"><![CDATA[文字识别是怎样工作的?(AT678)题解]]></title>
-        <id>https://zhanglinquan.github.io/post/wen-zi-shi-bie-shi-zen-yang-gong-zuo-de</id>
-        <link href="https://zhanglinquan.github.io/post/wen-zi-shi-bie-shi-zen-yang-gong-zuo-de">
-        </link>
-        <updated>2020-03-13T05:22:08.000Z</updated>
-        <content type="html"><![CDATA[<p>首先,用AT678作为引入(一道赫赫有名的毒瘤题(lxl指数大于11)),大意是要你识别ATcoder登陆的验证码,那么,如果是我,解决方案就是:————————我不干了!!!!!<br>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文字识别是怎样工作的?(AT678)题解 | 张林铨的blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zhanglinquan.github.io/favicon.ico?v=1584078947897">
+<link rel="stylesheet" href="https://zhanglinquan.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="首先,用AT678作为引入(一道赫赫有名的毒瘤题(lxl指数大于11)),大意是要你识别ATcoder登陆的验证码,那么,如果是我,解决方案就是:————————我不干了!!!!!
+不皮了,先上代码:
+#define _CRT_SECURE..." />
+    <meta name="keywords" content="题解" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://zhanglinquan.github.io">
+        <img src="https://zhanglinquan.github.io/images/avatar.png?v=1584078947897" class="site-logo">
+        <h1 class="site-title">张林铨的blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      <div align='center'><a href='https://www.hit-counts.com/'><img src='http://www.hit-counts.com/counter.php?t=MTQ0NjA3Nw==' border='0' alt='professional logo design'></a><BR><a href='https://www.glowgraphics.co.uk/'>professional logo design</a></div>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=500684331&auto=1&height=66"></iframe> | <a class="rss" href="https://zhanglinquan.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">文字识别是怎样工作的?(AT678)题解</h2>
+            <div class="post-date">2020-03-13</div>
+            
+            <div class="post-content" v-pre>
+              <p>首先,用AT678作为引入(一道赫赫有名的毒瘤题(lxl指数大于11)),大意是要你识别ATcoder登陆的验证码,那么,如果是我,解决方案就是:————————我不干了!!!!!<br>
 不皮了,先上代码:</p>
 <pre><code class="language-cpp">#define _CRT_SECURE_NO_WARNINGS
 #include &lt;string&gt;
@@ -743,720 +830,88 @@ int main() {
 <h2 id="最后关于旋转的问题用文章中简化的生成器生成出的特征无法应付旋转所以完整版代码是在最上方的那种">最后,关于旋转的问题,用文章中简化的生成器生成出的特征无法应付旋转,所以完整版代码是在最上方的那种.</h2>
 <p>推荐练习题:洛谷P3186,CF178E,没了.<br>
 <s>要是喜欢毒瘤题,ynoi了解一下??</s></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[关于BFS]]></title>
-        <id>https://zhanglinquan.github.io/post/about-bfs</id>
-        <link href="https://zhanglinquan.github.io/post/about-bfs">
-        </link>
-        <updated>2020-03-06T12:57:43.000Z</updated>
-        <content type="html"><![CDATA[<p><s>他死了</s><br>
-BFS，即宽度优先搜索（balabala不讲无意义内容）<br>
-核心：用一个队列来记录“待办事项”，用最短路来举个例子，代码如下</p>
-<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-int dx[5]={0,1,0,0,-1};
-int dy[5]={0,0,-1,1,0};
-int a[1001][1001],q[250000][10];
-int sx,sy,ex,ey;
-void input(int n,int m){
-	char tmp;
-	memset(a,-1,sizeof(a));
-	for(int i=1;i&lt;=n;i++){
-		for(int j=1;j&lt;=m;j++){
-			cin&gt;&gt;tmp;
-			if(tmp=='.') a[i][j]=0;
-			if(tmp=='#') a[i][j]=-1;
-			if(tmp=='*'){
-				a[i][j]=0;
-				ex=i;
-				ey=j;
-			}
-			if(tmp=='@'){
-				a[i][j]=0;
-				sx=i;
-				sy=j;
-			}
-		}
-	}
-}
-int main(){
-	int h=1,t=1,n,m;
-	cin&gt;&gt;n&gt;&gt;m;
-	input(n,m);
-	q[1][0]=0;
-	q[1][1]=sx;//初始化“待办事项
-	q[1][2]=sy;//同上
-	a[1][1]=-1;
-	while(h&lt;=t){
-		if(q[h][1]==ex&amp;&amp;q[h][2]==ey){//达到目标
-			cout&lt;&lt;q[h][0]&lt;&lt;endl;
-			return 0;
-		}
-		for(int i=1;i&lt;=4;i++){
-			int x,y;
-			x=q[h][1]+dx[i];//拿到事情
-			y=q[h][2]+dy[i];//同上
-			if(a[x][y]==0){//做事
-				t++;
-				q[t][0]=q[h][0]+1;//产生新事
-				q[t][1]=x;//同上
-				q[t][2]=y;//同上
-				a[x][y]=-1;
-			}
-		}
-		h++;//做完了一件事
-	}
-    //无解
-	return 0;
-}
-</code></pre>
-<p>这里面没有用STL中的queue，但原理相同。<br>
-代码中每次穷举的是步数（即离终点的距离），一次while穷举一个步数。<br>
-可以看到，队列在while循环做完之前不为空（即有效解一定在穷举完所有步数之前得到），所以BFS的解一般是在循环内产生。<br>
-然后，我们用深搜（DFS）来实现一下</p>
-<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-int a[105][105],d[105][105],n,m;
-void dg(int dep,int i,int j){
-	if(dep&lt;d[i][j]&amp;&amp;dep&lt;200){
-		d[i][j]=dep;
-		if(a[i][j+1]==0) dg(dep+1,i,j+1);
-		if(a[i+1][j]==0) dg(dep+1,i+1,j);
-		if(a[i][j-1]==0) dg(dep+1,i,j-1);
-		if(a[i-1][j]==0) dg(dep+1,i-1,j);
-	}
-}
-void input(int n,int m){
-	char tmp;
-	memset(a,-1,sizeof(a));
-	for(int i=1;i&lt;=n;i++){
-		for(int j=1;j&lt;=m;j++){
-			cin&gt;&gt;tmp;
-			if(tmp=='.') a[i][j]=0;
-			if(tmp=='#') a[i][j]=-1;
-			d[i][j]=INT_MAX;
-		}
-	}
-}
-int main(){
-	cin&gt;&gt;n&gt;&gt;m;
-	input(n,m);
-	dg(1,1,1);
-	cout&lt;&lt;d[n][m]&lt;&lt;endl;
-	return 0;
-}
-</code></pre>
-<p>可以发现，DFS慢在于需要回溯，而且不做到底不回头，举个例子，正确路径是右右右右，而DFS永远先穷举左，产生大量无意义劳动，而BFS只需要循环4*4=16次，速度进步巨大。（所以DFS要加玄学限制:dep&lt;200）</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[第一次做工程的成果]]></title>
-        <id>https://zhanglinquan.github.io/post/di-yi-ci-zuo-gong-cheng-de-cheng-guo</id>
-        <link href="https://zhanglinquan.github.io/post/di-yi-ci-zuo-gong-cheng-de-cheng-guo">
-        </link>
-        <updated>2020-03-05T12:08:02.000Z</updated>
-        <content type="html"><![CDATA[<p>寒假里摸鱼的成果</p>
-<pre><code class="language-cpp">/*
-坑点大全：
-1.地图是25*25的，不是27*27的
-2.x,y是行，列，不是列，行（可能某些地方做了转换） 
-3.p1在代码中还记作p1，但p2记作p0
-4.p2(p0)代码中变量为p1的后面加数字1
-5.重要！！重要！！！！重要！！！这个程序分4个线程，分别是打印地图，main函数，p1键盘侦测，p2（p0）键盘侦测
-6.原来想做的事战略游戏（放置方块）（像皇室战争）所以障碍才分1-4，1、2归P1，3、4归P2，后来改成走迷宫，添加了6目标方块，还可以放障碍（1-4），后来变成放地雷，再变成自动生成地雷，最后水平不足，变成
-自动生成障碍。
-7.请未来的自己帮忙，其实自动行走是bug。（2020.1.25） 
-*/ 
-#include&lt;bits/stdc++.h&gt;
-#include&lt;windows.h&gt; 
-#include&lt;time.h&gt;
-COORD coord;
-using namespace std;
-const int mapx=27;
-bool stop=false;
-int maps[mapx][mapx];
-HANDLE hCon;
-int p1ott,p1btt,p2ott,p2btt,pn=1,x=2,y=2,ops,ops1,x1=2,y1=2;
-enum Color {DARKBLUE=1,DARKGREEN,DARKTEAL,DARKRED,DARKPINK,DARKYELLOW,GRAY,DARKGRAY,BLUE,GREEN,TEAL,RED,PINK,YELLOW,WHITE};
-void window(){
-	HANDLE handle=GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO CursorInfo;
-	GetConsoleCursorInfo(handle,&amp;CursorInfo);
-	CursorInfo.bVisible=false;
-	SetConsoleCursorInfo(handle,&amp;CursorInfo); 
-}
-void SetColor(Color c){
-    if(hCon==NULL)
-    	hCon=GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hCon,c);
-}
-void GoToxy(int x,int y){
-    coord.X=x;
-    coord.Y=y;
-    HANDLE a=GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleCursorPosition(a,coord);
-}
-int clrscr(){ 
-	HANDLE hndl=GetStdHandle(STD_OUTPUT_HANDLE); 
-	CONSOLE_SCREEN_BUFFER_INFO csbi; 
-	GetConsoleScreenBufferInfo(hndl,&amp;csbi); 
-	DWORD written; 
-	DWORD N=csbi.dwSize.X*csbi.dwCursorPosition.Y+csbi.dwCursorPosition.X+1; 
-	COORD curhome={0,0}; 
-	FillConsoleOutputCharacter(hndl,' ',N,curhome,&amp;written); 
-	csbi.srWindow.Bottom-=csbi.srWindow.Top; 
-	csbi.srWindow.Top=0; 
-	SetConsoleWindowInfo(hndl,TRUE,&amp;csbi.srWindow); 
-	SetConsoleCursorPosition(hndl,curhome); 
-	return 0; 
-}
-char keyboard(){
-	if (GetAsyncKeyState(VK_UP)&amp;0x8000)  
-		return 'w';
-    else if (GetAsyncKeyState(VK_DOWN)&amp;0x8000)  
-		return 's';
-    else if (GetAsyncKeyState(VK_LEFT)&amp;0x8000)
-        return 'a';
-    else if (GetAsyncKeyState(VK_RIGHT)&amp;0x8000)  
-        return 'd';
-    else if (GetAsyncKeyState(VK_NUMPAD8)&amp;0x8000)  
-        return 'i';
-    else if (GetAsyncKeyState(VK_NUMPAD5)&amp;0x8000)  
-    	return 'k';
-    else if (GetAsyncKeyState(VK_NUMPAD4)&amp;0x8000)
-        return 'j';
-    else if (GetAsyncKeyState(VK_NUMPAD6)&amp;0x8000)  
-        return 'l';
-}
-char to_ch_map(int n){
-	switch(n){
-		case 0:return '.';
-		case 1:return '@';
-		case 2:return '#';
-		case 3:return '$';
-		case 4:return '%';
-		case 5:return '=';
-		case 6:return '*';
-		case 7:return '&amp;';
-	}
-}
-void outputmap(){
-	int c;
-	char c2;
-	char op;
-	for(int i=1;i&lt;mapx;i++){
-		for(int j=1;j&lt;mapx;j++){
-			GoToxy(j,i);
-			c=maps[i][j];
-			c2=to_ch_map(c);
-			if(maps[i][j]==5||maps[i][j]==7){
-				SetColor(RED);
-			}
-			printf(&quot;%c&quot;,c2);
-			SetColor(YELLOW);
-		}
-		printf(&quot;\n&quot;);
-	}
-}
-void p1(){
-	char op;
-	int oops=ops;
-	int ox=1,oy=1,th;
-	ox=x;oy=y;
-	op=keyboard();
-	switch(op){
-		case 'w':x--;ops=0;break;
-		case 's':x++;ops=0;break;
-		case 'a':y--;ops=0;break;
-		case 'd':y++;ops=0;break;
-	}
-	if(maps[x][y]!=0&amp;&amp;maps[x][y]!=6){
-		x=ox;
-		y=oy;
-	}
-	if(oops==0&amp;&amp;ops==0) maps[ox][oy]=0;
-	if(ops==0) maps[x][y]=5;
-}
-void p2(){
-	char op1;
-	int oops1=ops1;
-	int ox1=1,oy1=1,th1;
-	ox1=x1;oy1=y1;
-	op1=keyboard();
-	switch(op1){
-		case 'i':x1--;ops=0;break;
-		case 'k':x1++;ops=0;break;
-		case 'j':y1--;ops=0;break;
-		case 'l':y1++;ops=0;break;
-	}
-	if(maps[x1][y1]!=0&amp;&amp;maps[x1][y1]!=6){
-		x1=ox1;
-		y1=oy1;
-	}
-	if(oops1==0&amp;&amp;ops1==0) maps[ox1][oy1]=0;
-	if(ops1==0) maps[x1][y1]=7;
-}
-void start(){
-	srand(time(0));
-	memset(maps,rand(),sizeof(maps));
-	memset(maps,0,sizeof(maps));
-	maps[11][11]=6;
-	maps[10][1]=1;
-	maps[11][1]=1;
-	maps[8][2]=1;
-	maps[13][2]=1;
-	maps[10][mapx-2]=1;
-	maps[11][mapx-2]=1;
-	maps[8][mapx-1]=1;
-	maps[13][mapx-1]=1;
-	maps[11][10]=2;
-	maps[11][12]=2;
-	maps[10][11]=2;
-	for(int i=1;i&lt;=mapx-1;i++){
-		maps[1][i]=2;
-		maps[i][1]=2;
-	}
-	for(int i=1;i&lt;=mapx-1;i++){
-		maps[i][mapx-1]=2;
-		maps[mapx-1][i]=2;
-	}
-	srand(time(0));
-	for(int i=1;i&lt;mapx-1;i++){
-		for(int j=1;j&lt;mapx-1;j++){
-			if(j==11||i==11) continue;
-			if(rand()%10==0) maps[i][j]==4;
-			if(rand()%13==0) maps[i][j]=1;
-			if(rand()%75==0) maps[i][j]=3;
-		}
-	}
-}
-void th1(){
-	while(!stop){
-		outputmap();
-	}
-	clrscr();
-	system(&quot;color C4&quot;);
-}
-void th2(){
-	while(!stop){
-		p2();
-		Sleep(100);
-	}
-	clrscr();
-	system(&quot;color C4&quot;);
-}
-void th3(){
-	while(!stop){
-		p1();
-		Sleep(100);
-	}
-	clrscr();
-	system(&quot;color C4&quot;);
-}
-int main(){
-	window();
-	start();
-	thread t(&amp;th1);
-	thread t1(&amp;th2);
-	thread t3(&amp;th3);
-	while(!stop){
-		if(maps[11][11]!=5&amp;&amp;maps[11][11]!=7&amp;&amp;maps[11][11]!=6){
-			maps[11][11]=6;
-			cout&lt;&lt;&quot;this block must be 6!!&quot;&lt;&lt;endl;
-		}
-		if(maps[11][11]==5){
-			stop=!stop;
-			clrscr();
-			Sleep(1000);
-			system(&quot;color 07&quot;);
-			cout&lt;&lt;&quot;p1 WIN&quot;&lt;&lt;endl;
-			system(&quot;pause&quot;);
-			exit(0);
-		}
-		if(maps[11][11]==7){
-			stop=!stop;
-			clrscr();
-			Sleep(1000);
-			system(&quot;color 07&quot;);
-			cout&lt;&lt;&quot;p2 WIN&quot;&lt;&lt;endl;
-			system(&quot;pause&quot;);
-			exit(0);
-		}
-	}
-	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[C++中的endl（面向对象初体验）]]></title>
-        <id>https://zhanglinquan.github.io/post/czhong-de-endlmian-xiang-dui-xiang-chu-ti-yan</id>
-        <link href="https://zhanglinquan.github.io/post/czhong-de-endlmian-xiang-dui-xiang-chu-ti-yan">
-        </link>
-        <updated>2020-03-04T12:54:59.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="1-endl的本质">1. endl的本质</h1>
-<p>自从在C语言的教科书中利用Hello world程序作为学习的起点之后，很多程序设计语言的教科书都沿用了这个做法。我们写过的第一个C++程序可能就是这样的。</p>
-<pre><code class="language-cpp">
-#include &lt;iostream&gt;
-using namespace std;
-int main(){
-    cout&lt;&lt;&quot;Hello world&quot;&lt;&lt;endl;
-}
-</code></pre>
-<p>学习过C语言的程序猿自然会把输出语句与C语言中的输出语句联系起来，也就是说：<br>
-<code>cout&lt;&lt;”Hello world”&lt;&lt;endl;</code>相当于<code>printf(“Hello world\n”);</code>由于endl会导致输出的文字换行，自然而然地我们会想到endl可能就是换行符’\n’。<br>
-但是，如果我们定义<code>char c=endl;</code>会得到一个编译错误，这说明 endl 并不是一个字符，所以应该到系统头文件中去查找 endl 的定义。通过VS2012转到定义，找到了 endl 的定义如下：</p>
-<pre><code class="language-cpp">template&lt;class _Elem,class _Traits&gt; inline basic_ostream&lt;_Elem, _Traits&gt;&amp;
-__CLRCALL_OR_CDECL endl(basic_ostream&lt;_Elem, _Traits&gt;&amp; _Ostr)
-{   // insert newline and flush stream
-    _Ostr.put(_Ostr.widen('\n'));
-    _Ostr.flush();
-    return (_Ostr);
-}
-</code></pre>
-<p>从定义中看出，endl是一个函数模板，它实例化之后变成一个模板函数，其作用如这个函数模板的注释所示，插入换行符并刷新输出流。其中刷新输出流指的是将缓冲区的数据全部传递到输出设备并将输出缓冲区清空。</p>
-<h1 id="coutendl的介绍">cout&lt;&lt;endl的介绍</h1>
-<p>endl是一个函数模板，再被使用时会实例化为模板函数。但是函数调用应该使用一对圆括号，也就是写成<code>endl()</code>的形式，而在语句<code>cout&lt;&lt;”Hello world”&lt;&lt;endl;</code>中并没有这样，原因何在？</p>
-<p>在头文件 iostream 中，有这样一条申明语句：<code>extern ostream&amp; cout；</code>这说明cout是一个ostream类对象。而 &lt;&lt; 原本是用于移位运算的操作符，在这里用于输出，说明它是一个经过重载的操作符函数。如果把 endl 当做一个模板函数，那么<code>cout&lt;&lt;endl</code>可以解释成<code>cout.operator&lt;&lt;(endl);</code>由于一个函数名代表一个函数的入口地址，所以在cout的所属类ostream中应该有一个<code>operator&lt;&lt;()</code>函数的重载形式接受一个函数指针做参数。</p>
-<p>查找ostream类的定义，发现其实是另一个类模板实例化之后生成的模板类，即：</p>
-<pre><code class="language-cpp">typedef basic_ostream&lt;char, char_traits&lt;char&gt; &gt; ostream;
-</code></pre>
-<p>所以，实际上应该在类模板basic_ostream中查找<code>operator&lt;&lt;()</code>的重载版本。在头文件ostream中查找 basic_ostream 的定义，发现其中<code>operator&lt;&lt;</code>作为成员函数被重载了17次，其中的一种：</p>
-<pre><code class="language-cpp">
-typedef basic_ostream&lt;_Elem, _Traits&gt; _Myt;
- 
-_Myt&amp; __CLR_OR_THIS_CALL operator&lt;&lt;(_Myt&amp; (__cdecl *_Pfn)(_Myt&amp;))
-{   // call basic_ostream manipulator
-    _DEBUG_POINTER(_Pfn);
-    return ((*_Pfn)(*this));
-}
-</code></pre>
-<p>在 ostream 类中，<code>operator&lt;&lt;</code>作为成员函数重载方式如下：</p>
-<pre><code class="language-cpp">ostream&amp; ostream::operator&lt;&lt;(ostream&amp; (*op)(ostream&amp;))  
-{  
-    return (*op)(*this);  
-} 
-</code></pre>
-<p>这个重载正好与endl函数的申明相匹配，所以 &lt;&lt; 后面是可以跟着 endl  。也就是说， cout 对象的 &lt;&lt; 操作符接收到 endl 函数的地址后会在重载的操作符函数内部调用 endl 函数，而 endl 函数会结束当前行并刷新输出缓冲区。</p>
-<p>为了证明 endl 是一个 函数模板，或者说 end l是一个经过隐式实例化之后的模板函数，我们把程序改造如下：</p>
-<pre><code class="language-cpp">
-#include &lt;iostream&gt;
-using namespace std;
-int main(){
-    cout&lt;&lt;&quot;Hello world&quot;&lt;&lt;&amp;endl;
-}
-</code></pre>
-<p>这个程序可以正常运行，并且结果完全同上一个程序。原因是对于一个函数而言，函数名本身就代表函数的入口地址，而函数名前加 &amp; 也代表函数的入口地址。</p>
-<h1 id="3endl其实是io操纵符">3.endl其实是IO操纵符</h1>
-<p>实际上， endl 被称为IO操纵符，也有翻译成<strong>IO算子</strong>的。IO操作符的本质是自由函数，他们并不封装在某个类的内部，使用时不采用显示的函数调用的形式。在<code>&lt; iostream&gt;</code>头文件中定义的操纵符有：</p>
-<pre><code>    endl:输出时插入换行符并刷新流
-    endls：输出时在字符 插入NULL作为尾符
-    flush：刷新缓冲区，把流从缓冲区输出到目标设备，并清空缓冲区
-    ws：输入时略去空白字符
-    dec：令IO数据按十进制格式
-    hex:令IO数据按十六进制格式
-    oct：令IO数据按八进制格式
-</code></pre>
-<p>在<code>&lt; iomanip&gt;</code>头文件中定义的操作符有：</p>
-<pre><code>    setbase(int)
-    resetiosflags(long)
-    setiosflags(long)
-    setfill(char)
-    setprecision(int)
-    setw(int)
-</code></pre>
-<p>这些格式控制符大致可以替代 ios 的格式函数成员的功能，且使用比较方便。例如，为了把整数345按16进制输出，可以采用两种方式：</p>
-<pre><code class="language-cpp">int i=345;
-cout.setf(ios::hex,ios::basefield);
-cout&lt;&lt;i&lt;&lt;endl;
-</code></pre>
-<p>or</p>
-<pre><code class="language-cpp">cout&lt;&lt;hex&lt;&lt;i&lt;&lt;endl;
-</code></pre>
-<p>可以看出采用格式操纵符比较方便，二者的区别主要在于：格式成员函数是标准输出对象 cout 的成员函数，因此在使用时必须和 cout 同时出现，而操纵符是自由函数，可以独立出现，使用格式成员函数要显示采用函数调用的形式，不能用IO运算符”&lt;&lt;”和”&gt;&gt;”形成链式操作。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[从记忆化搜索到DP（动态规划）]]></title>
-        <id>https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua</id>
-        <link href="https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua">
-        </link>
-        <updated>2020-02-19T13:01:57.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="目录">目录</h1>
-<ul>
-<li>记忆化搜索是啥</li>
-<li>记忆化搜索和动态规划有啥关系</li>
-<li>动态规划做法</li>
-</ul>
-<h1 id="1-记忆化搜索是啥引入">1. 记忆化搜索是啥（引入</h1>
-<p>好，就以采药这道题为例，我不会动态规划，只会搜索，我就会直接写一个粗暴的 DFS :</p>
-<p>注: 为了方便食用, 本文中所有代码省略头文件</p>
-<pre><code class="language-cpp">int n,t;
-int tcost[103],mget[103];
-int ans=0;
-void dfs(int pos,int tleft,int tans){
-    if(tleft&lt;0) return;
-    if(pos==n+1){
-        ans=max(ans,tans);
-        return;
-    }
-    dfs(pos+1,tleft,tans);
-    dfs(pos+1,tleft-tcost[pos],tans+mget[pos]);
-}
-int main(){
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    dfs(1,t,0);
-    cout&lt;&lt;ans&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p>30pts</p>
-<p>然后我心血来潮, 想不借助任何 &quot;外部变量&quot;(就是 dfs 函数外且 值随 dfs 运行而改变的变量 ), 比如 ans</p>
-<p>把 ans 删了之后就有一个问题: 我们拿什么来记录答案?</p>
-<p>答案很简单:</p>
-<p>返回值!</p>
-<p>此时 dfs(pos,tleft) 返回在时间 tleft内采集 后 pos 个草药, 能获得的最大收益</p>
-<p>不理解就看看代码吧:</p>
-<pre><code class="language-cpp">int n,time;
-int tcost[103],mget[103];
-int dfs(int pos,int tleft){
-    if(pos==n+1)
-        return 0;
-    int dfs1,dfs2=-INF;
-    dfs1=dfs(pos+1,tleft);
-    if( tleft&gt;tcost[pos] )
-        dfs2=dfs(pos+1,tleft-tcost[pos])+mget[pos];
-    return max(dfs1,dfs2);
-}
-int main(){
-    cin&gt;&gt;time&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    cout&lt;&lt;dfs(1,time)&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p><s>还是30pts，我太难了</s><br>
-但这个时候, 我们的程序已经不依赖任何外部变量了.</p>
-<p>然后我非常无聊, 将所有 dfs 的返回值都记录下来, 竟然发现......</p>
-<pre><code>震惊, 对于相同的 pos 和 tleft,dfs 的返回值总是相同的!
-</code></pre>
-<p>想一想也不奇怪, 因为我们的 dfs 没有依赖任何外部变量.</p>
-<p>旁白: 像 tcost[103],mget[103] 这种东西不算是外部变量, 因为她们在 dfs 过程中不变.</p>
-<p>然后?</p>
-<p>开个数组 mem , 记录下来每个 dfs(pos,tleft) 的返回值. 刚开始把 mem 中每个值都设成 -1 (代表没访问过). 每次刚刚进入一个 dfs 前(我们的 dfs 是递归调用的嘛), 都检测 mem[pos][tleft]是否为 -1 , 如果是就正常执行并把答案记录到 mem 中, 否则?</p>
-<p>直接返回 mem 中的值!</p>
-<pre><code class="language-cpp">int n,t;
-int tcost[103],mget[103];
-int mem[103][1003];
-int dfs(int pos,int tleft){
-    if(mem[pos][tleft]!=-1) return mem[pos][tleft];
-    if(pos==n+1)
-        return mem[pos][tleft] = 0;
-    int dfs1,dfs2=-INF;
-    dfs1 = dfs(pos+1,tleft);
-    if(tleft&gt;=tcost[pos])
-        dfs2=dfs(pos+1,tleft-tcost[pos])+mget[pos];
-    return mem[pos][tleft]=max(dfs1,dfs2);
-}
-int main(){
-    memset(mem,-1,sizeof(mem));
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    cout&lt;&lt;dfs(1,t)&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p>此时 mem 的意义与 dfs 相同：</p>
-<pre><code>在时间 tleft内采集 后 pos 个草药, 能获得的最大收益
-</code></pre>
-<p>这能 ac?</p>
-<p>能. 这就是 &quot;采药&quot; 那题的 AC 代码</p>
-<p>好我们倒腾出了记忆化搜索</p>
-<p>总结一下记忆化搜索是啥:<br>
-不依赖任何 外部变量，答案以返回值的形式存在, 而不能以参数的形式存在(就是不能将 dfs 定义成 dfs(pos,tleft,nowans ), 这里面的 nowans 不符合要求).</p>
-<p>对于相同一组参数, dfs 返回值总是相同的</p>
-<h1 id="记忆化搜索与动态规划的关系分析">记忆化搜索与动态规划的关系:（分析</h1>
-<p>基本是朋 (ji) 友关系</p>
-<p>有人会问: 记忆化搜索难道不是搜索?</p>
-<p>一定程度上来说，她是搜索.但个人认为她更像dp</p>
-<p>其实说白了，记忆化搜索就是dp</p>
-<p>不信你看mem 的意义:</p>
-<p>在时间 tleft 内采集 后 pos 个草药, 能获得的最大收益</p>
-<p>这不就是dp的状态?</p>
-<p>由上面的代码中可以看出:</p>
-<p>dfs(pos,left) = max(dfs(pos+1,tleft-tcost[pos])+mget[pos] , dfs(pos+1,tleft))<br>
-即为</p>
-<p>mem[pos][tleft] = max(mem[pos+1][tleft-tcost[pos]]+mget[pos] , mem[pos+1][tleft])<br>
-这不就是dp的状态转移?</p>
-<p>总结一下：</p>
-<pre><code>记忆化搜索和动态规划从根本上来讲就是一个东西,**(印象中)任何一个 dp 方程都能转为记忆化搜索 ，反之亦然（为什么？见下文“体现在”的第四条）
-</code></pre>
-<p>体现在</p>
-<ul>
-<li>
-<p>根据记忆化搜索的参数可以直接得到dp的状态，反之亦然</p>
-</li>
-<li>
-<p>根据记忆化搜索的递归关系可以写出状态转移方程，这个方程可以直接写出循环式的dp，只不过是反的(想想为什么？)，反之亦然</p>
-</li>
-<li>
-<p>大部分记忆化搜索时空复杂度与 不加优化的 dp 完全相同</p>
-</li>
-<li>
-<p><strong>最重要的一点：二者思想类似！！ 核心思想均为：利用对于相同参数答案相同的特性，对于相同的参数（循环式的dp体现为数组下标），记录其答案，免去重复计算，从而起到优化时间复杂度的作用。这，便是二者的精髓。</strong></p>
-</li>
-</ul>
-<p>建议好好想想第四条。记住，学一个算法，一定要理解他的精髓。</p>
-<p>举个栗子:</p>
-<p>dp[i][j][k] = dp[i+1][j+1][k-a[j]] + dp[i+1][j][k]<br>
-转为</p>
-<pre><code class="language-cpp">int dfs(int i,int j,int k){
-    边界条件
-    if( mem[i][j][k]!=-1) return mem[i][j][k];
-    return mem[i][j][k]=dfs(i+1,j+1,k-a[j])+dfs(i+1,j,k);
-}
-int main(){
-    memset(mem,-1,sizeof(mem));
-    读入
-    cout&lt;&lt;dfs(1,0,0)&lt;&lt;endl;
-}
-</code></pre>
-<p>二者满足上面提到的所有关系</p>
-<h1 id="dp做法">dp做法</h1>
-<p><s>上面转移方程都出来了，还不会？？</s></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cmath&gt;
-using namespace std;
-int f[1001],n,t,v[101],w[101];
-int main(){
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;w[i]&gt;&gt;v[i];
-    }
-    for(int i=1;i&lt;=n;i++){
-        for(int j=t;j&gt;=w[i];j--) {
-            f[j]=max(f[j-w[i]]+v[i], f[j]);
-        }
-    }
-    cout&lt;&lt;f[t];
-    return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[本小学生蒟蒻的第一篇题解]]></title>
-        <id>https://zhanglinquan.github.io/post/ben-xiao-xue-sheng-ju-ruo-de-di-yi-pian-ti-jie</id>
-        <link href="https://zhanglinquan.github.io/post/ben-xiao-xue-sheng-ju-ruo-de-di-yi-pian-ti-jie">
-        </link>
-        <updated>2020-01-28T12:27:30.000Z</updated>
-        <content type="html"><![CDATA[<p>这道题非常简单，~~为什么呢？~~<s>因为老师讲的例题就是这个啊！</s></p>
-<p>OK，废话不多说，本小学生蒟蒻认为，用桶排序，俗称小学生排序（哪个老师取的<s>坏</s>好名字？），直接完成排序，在不管格内是几，就输出一个即可。</p>
-<p>why？见代码<br>
-抄袭必CE</p>
-<pre><code class="language-cpp">//注释中的代码是在a数组为bool情况下使用的
-#include&lt;bits/stdc++.h&gt;//万能头，不用白不用
-using namespace std;
-int a[10000000];//之所以不用bool是因为代码要有通用性，直接用模板（bool a[10000000]
-int main(){
-    int n,s=0;//n是输入个数，s是输出个数
-  	bool f=false;//是否为第一个输出（防止多空格
-    int x;
-    cin&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;x;
-        a[x]++;//a[x]=!a[x]
-    }
-    for(int i=1;i&lt;=1000;i++){//1000是指最大数为1000（数组中记的是数字i的存在情况，而存在的最大数为1000）
-        if(a[i])//有这个数
-            s++；
-    }
-    cout&lt;&lt;s&lt;&lt;endl;
-    for(int i=1;i&lt;=1000;i++){
-        if(a[i]){//有这个数
-            if(f==0){//是第一个
-                cout&lt;&lt;i;
-                f=！f；
-            }
-            else
-                cout&lt;&lt;&quot; &quot;&lt;&lt;i;
-        }
-    }
-    cout&lt;&lt;endl;
-    return 0;
-}
 
-</code></pre>
-<p>e.g</p>
-<p>来模拟一下程序是如何工作的</p>
-<p>输入：8</p>
-<p>1 1 1 2 3 3 6 5</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">i</th>
-<th style="text-align:left">1</th>
-<th style="text-align:left">2</th>
-<th style="text-align:left">3</th>
-<th style="text-align:left">4</th>
-<th style="text-align:left">5</th>
-<th style="text-align:left">6</th>
-<th style="text-align:left">7</th>
-<th style="text-align:left">8</th>
-<th style="text-align:left"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a[i]</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<p>目前程序执行了第一个循环</p>
-<p>开始第二个循环</p>
-<p>i=1 a[i]=true s++ s=1</p>
-<p>i=2 a[i]=true s++ s=2</p>
-<p>i=3 a[i]=true s++ s=3</p>
-<p>i=4 a[i]=false 啥也不干</p>
-<p>i=5 a[i]=true s++ s=4</p>
-<p>i=6 a[i]=true s++ s=5</p>
-<p>i=7 a[i]=false 啥也不干</p>
-<p>略（都是啥也不干）</p>
-<p>开始第三个循环<br>
-i=1 f=false a[i]=true 输出i f=true</p>
-<p>i=2 f=true a[i]=true 输出i</p>
-<p>i=3 f=true a[i]=true 输出i</p>
-<p>i=4 f=true a[i]=false 啥也不干</p>
-<p>i=5 f=true a[i]=true 输出i</p>
-<p>i=6 f=true a[i]=true 输出i</p>
-<p>i=7 a[i]=false 啥也不干</p>
-<p>略（都是啥也不干）</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[递归]]></title>
-        <id>https://zhanglinquan.github.io/post/递归</id>
-        <link href="https://zhanglinquan.github.io/post/递归">
-        </link>
-        <updated>2019-10-24T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p>这节课学了递归，<s>好晕</s></p>
-<p>好不容易想通了一点赶紧记下，充当第一篇博客</p>
-<p>递归就是函数自己调用自己的过程。那为什么要有递归呢？原因很简单：在解决一个问题的同时，需要解决另一个与当前问题相同的问题，并且这个问题在特定情况下有解（递归结束条件），其他情况的答案都可由此答案推导而来（转移方程）。那又有问题了，为什么不用循环呢？观察上面的描述中“需要解决另一个与当前问题相同的问题”这一句话，真的只需要解决另一个吗？答案是否定的，有可能要解决多个同样的问题，这种情况下，如果使用循环，那么每个循环都要产生多个同样的循环，是无法实现的，所以才要使用递归。</p>
-]]></content>
-    </entry>
-</feed>
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://zhanglinquan.github.io/tag/oeyg-RQE0" class="tag">
+                    题解
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://zhanglinquan.github.io/post/about-bfs">
+                  <h3 class="post-title">
+                    关于BFS
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
