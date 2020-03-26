@@ -9,8 +9,8 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css">
-    <link rel="stylesheet" href="/media/css/post.css">
-    <link rel="stylesheet" href="/media/live2d/css/live2d.css" />
+    <link rel="stylesheet" href="media/css/post.css">
+    <link rel="stylesheet" href="media/live2d/css/live2d.css" />
     
     <script type="text/javascript" src="&lt;script type=&#34;text/javascript&#34; src=&#34;http://tajs.qq.com/stats?sId=undefined&#34; charset=&#34;UTF-8&#34;&gt;&lt;/script&gt;" charset="UTF-8"></script>
     
@@ -591,9 +591,9 @@ int main() {
 </code></pre>
 <h2 id="step1-降噪">step1 降噪</h2>
 <p>如果不降噪会影响图片的识别效果，而且我们很容易发现噪点连成一个很大的联通块基本是不可能的，所以我们可以通过 flood-fill 求出每一个联通块，并删掉所有大小&lt;100的联通块。<br>
-<img src="https://zhanglinquan.github.io/post-images/1584077358954.png" alt="" loading="lazy"><br>
+<img src="https://s1.ax1x.com/2020/03/26/8z3lHH.png" alt="" loading="lazy"><br>
 降噪后<br>
-<img src="https://zhanglinquan.github.io/post-images/1584077381377.png" alt="" loading="lazy"><br>
+<img src="https://s1.ax1x.com/2020/03/26/8z8mIs.png" alt="" loading="lazy"><br>
 代码</p>
 <pre><code class="language-cpp">void get_num_and_clean(){
     num=now=1;
@@ -622,7 +622,7 @@ int main() {
 </code></pre>
 <h2 id="step2-分离字符">step2 分离字符</h2>
 <p>我们用上一步被保留的联通块，求出左上角，右下角，左下角，右上角四个点的坐标，就把字符分离了出来。<br>
-分离效果：<img src="https://zhanglinquan.github.io/post-images/1584077476452.png" alt="" loading="lazy"><br>
+分离效果：<img src="https://s1.ax1x.com/2020/03/26/8zGCTJ.png" alt="" loading="lazy"><br>
 代码:</p>
 <pre><code class="language-cpp">void dfs(int x,int y,int sz=0){
   maxx[now]=max(maxx[now],x);
@@ -793,13 +793,7 @@ int main() {
         <div class="mdui-container">
             <div class="mdui-row">
                 
-                <a href="https://zhanglinquan.github.io/post/guan-yu-wo-de-ma-fen-pian-hao" class="mdui-ripple mdui-color-theme mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left">
-                    <div class="doc-footer-nav-text">
-                        <i class="mdui-icon material-icons">arrow_back</i>
-                        <span class="doc-footer-nav-direction mdui-hidden-xs-down">上一篇文章</span>
-                        <div class="doc-footer-nav-chapter mdui-hidden-xs-down">关于我的马粪偏好</div>
-                    </div>
-                </a>
+                <div class="mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left"></div>
                 
                 
                 <a href="https://zhanglinquan.github.io/post/about-bfs" class="mdui-ripple mdui-color-theme mdui-col-xs-10 mdui-col-sm-6 doc-footer-nav-right">
