@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhanglinquan.github.io</id>
     <title>张林铨的blog</title>
-    <updated>2020-03-26T01:08:56.759Z</updated>
+    <updated>2020-03-26T02:39:38.920Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhanglinquan.github.io"/>
     <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
@@ -10,6 +10,38 @@
     <logo>https://zhanglinquan.github.io/images/avatar.png</logo>
     <icon>https://zhanglinquan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 张林铨的blog</rights>
+    <entry>
+        <title type="html"><![CDATA[关于我的马粪偏好]]></title>
+        <id>https://zhanglinquan.github.io/post/guan-yu-wo-de-ma-fen-pian-hao</id>
+        <link href="https://zhanglinquan.github.io/post/guan-yu-wo-de-ma-fen-pian-hao">
+        </link>
+        <updated>2020-03-16T12:54:23.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="基础">基础</h1>
+<h2 id="大括号">大括号</h2>
+<pre><code>    - 不换行
+</code></pre>
+<h2 id="缩进">缩进</h2>
+<pre><code>    - Tab（宽度为4）
+</code></pre>
+<h2 id="符号">符号</h2>
+<pre><code>    - 两边不加空格
+    - 不用位运算
+</code></pre>
+<h2 id="行长度">行长度</h2>
+<pre><code>    - &lt;=80字符（如果有字符串则写完）
+</code></pre>
+<h1 id="语法">语法</h1>
+<h2 id="访问类成员">访问类成员</h2>
+<pre><code>  ### 对于自定义的类
+     - class：-&gt;
+     - struct: .
+   ### 对于STL
+      - 函数：-&gt;
+      - 数据：.
+    - 
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[文字识别是怎样工作的?(AT678)题解]]></title>
         <id>https://zhanglinquan.github.io/post/wen-zi-shi-bie-shi-zen-yang-gong-zuo-de</id>
