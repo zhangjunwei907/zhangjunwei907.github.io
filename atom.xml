@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhanglinquan.github.io</id>
     <title>张林铨的blog</title>
-    <updated>2020-03-27T03:18:10.101Z</updated>
+    <updated>2020-03-28T10:12:52.225Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhanglinquan.github.io"/>
     <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
@@ -10,6 +10,68 @@
     <logo>https://zhanglinquan.github.io/images/avatar.png</logo>
     <icon>https://zhanglinquan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 张林铨的blog</rights>
+    <entry>
+        <title type="html"><![CDATA[神虎牌删犇器]]></title>
+        <id>https://zhanglinquan.github.io/post/shen-hu-pai-shan-ben-qi</id>
+        <link href="https://zhanglinquan.github.io/post/shen-hu-pai-shan-ben-qi">
+        </link>
+        <updated>2020-03-28T09:55:45.000Z</updated>
+        <content type="html"><![CDATA[<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathcolor="steelblue"><menclose mathbackground="steelblue"><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mstyle mathsize="2.488em"><mstyle mathcolor="cadetblue"><menclose mathbackground="powderblue"><mtext mathvariant="monospace">神虎牌删犇器</mtext></menclose></mstyle></mstyle></mstyle></mstyle></menclose></menclose></mstyle></mrow><annotation encoding="application/x-tex">\color{steelblue}\colorbox{steelblue}{\boxed{\Huge\color{cadetblue}\colorbox{powderblue}{\texttt{神虎牌删犇器}}}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:4.29324168em;vertical-align:-1.3863999999999999em;"></span><span class="mord" style="color:steelblue;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.9068416800000003em;"><span style="top:-4.90684168em;"><span class="pstrut" style="height:6.29324168em;"></span><span class="stretchy colorbox" style="color:steelblue;height:4.29324168em;background-color:steelblue;"></span></span><span style="top:-6.2932416799999995em;"><span class="pstrut" style="height:6.29324168em;"></span><span class="mord boxpad" style="color:steelblue;"><span class="mord" style="color:steelblue;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6068416800000005em;"><span style="top:-5.69324168em;"><span class="pstrut" style="height:5.69324168em;"></span><span class="mord boxpad" style="color:steelblue;"><span class="mord" style="color:steelblue;"><span class="mord sizing reset-size6 size11" style="color:cadetblue;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9111100000000001em;"><span style="top:-4.188em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="stretchy colorbox" style="color:cadetblue;height:1.2111100000000001em;background-color:powderblue;"></span></span><span style="top:-4.4879999999999995em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="mord boxpad" style="color:cadetblue;"><span class="mord text" style="color:cadetblue;"><span class="mord texttt cjk_fallback" style="color:cadetblue;">神虎牌删犇器</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3em;"><span></span></span></span></span></span></span></span></span><span style="top:-4.6068416800000005em;"><span class="pstrut" style="height:5.69324168em;"></span><span class="stretchy fbox" style="color:steelblue;border-color:steelblue;height:3.6932416800000003em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.0863999999999998em;"><span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3863999999999999em;"><span></span></span></span></span></span></span></span></span></span></p>
+<h2 id="操作步骤">操作步骤</h2>
+<ol>
+<li>
+<p>按下键盘上的 <code>f12</code> 按键。</p>
+</li>
+<li>
+<p>在右方控制栏中点击 <code>Console</code> 会出现可以输入的区域。</p>
+</li>
+<li>
+<p>输入下方的这段代码。</p>
+</li>
+</ol>
+<pre><code class="language-cpp">switchMode('my');
+function load() {
+	console.log('page ' + feedPage);
+	$.get(&quot;/feed/&quot; + feedMode + &quot;?page=&quot; + feedPage, function (resp) {
+		$feed.append(resp);
+		$(&quot;#feed-more&quot;).children(&quot;a&quot;).text(&quot;点击查看更多...&quot;)
+		$(&quot;[name=feed-delete]&quot;).click(function () {
+			$.post(&quot;/api/feed/delete/&quot; + $(this).attr('data-feed-id'), function () {
+				switchMode('all');
+			})
+		}); feedPage++;
+		if (resp.indexOf('没有更多动态了') != -1) console.log('finished');
+		else setTimeout(load, 200);
+	});
+}
+setTimeout(load, 1000)
+</code></pre>
+<ol start="4">
+<li>
+<p>接着回车 <code>enter</code> 即可。</p>
+</li>
+<li>
+<p>马上会出现一大串的数字，慢慢等待 <code>Page</code> 闪完后出现 <code>finish</code>。</p>
+</li>
+</ol>
+<p>接着输入以下代码：</p>
+<pre><code class="language-cpp">var l =  $('#feed &gt; li &gt; div.am-comment-main &gt; header &gt; div &gt; a:nth-child(2)');
+function f(i) {
+$ .post(&quot;/api/feed/delete/&quot;+ $(l[i]).attr('data-feed-id'), function() {
+console.log(i);
+if(i&lt;l.length-1)setTimeout(`f(${i+1})`,200);
+})
+}
+f(0);
+</code></pre>
+<ol start="6">
+<li>如果出现 <code>503</code> 界面重新再次<strong>重复上述过程</strong>。</li>
+</ol>
+<p>直到删完为止，重新加载整个界面，建议重启浏览器。</p>
+<p>最后就完成了删犇的过程。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[文字识别是怎样工作的?(AT678)题解]]></title>
         <id>https://zhanglinquan.github.io/post/wen-zi-shi-bie-shi-zen-yang-gong-zuo-de</id>
