@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhanglinquan.github.io</id>
     <title>张林铨的blog</title>
-    <updated>2020-03-28T10:12:52.225Z</updated>
+    <updated>2020-03-28T11:26:36.964Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhanglinquan.github.io"/>
     <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
@@ -16,9 +16,7 @@
         <link href="https://zhanglinquan.github.io/post/shen-hu-pai-shan-ben-qi">
         </link>
         <updated>2020-03-28T09:55:45.000Z</updated>
-        <content type="html"><![CDATA[<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mstyle mathcolor="steelblue"><menclose mathbackground="steelblue"><menclose notation="box"><mstyle scriptlevel="0" displaystyle="false"><mstyle scriptlevel="0" displaystyle="true"><mstyle mathsize="2.488em"><mstyle mathcolor="cadetblue"><menclose mathbackground="powderblue"><mtext mathvariant="monospace">神虎牌删犇器</mtext></menclose></mstyle></mstyle></mstyle></mstyle></menclose></menclose></mstyle></mrow><annotation encoding="application/x-tex">\color{steelblue}\colorbox{steelblue}{\boxed{\Huge\color{cadetblue}\colorbox{powderblue}{\texttt{神虎牌删犇器}}}}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:4.29324168em;vertical-align:-1.3863999999999999em;"></span><span class="mord" style="color:steelblue;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.9068416800000003em;"><span style="top:-4.90684168em;"><span class="pstrut" style="height:6.29324168em;"></span><span class="stretchy colorbox" style="color:steelblue;height:4.29324168em;background-color:steelblue;"></span></span><span style="top:-6.2932416799999995em;"><span class="pstrut" style="height:6.29324168em;"></span><span class="mord boxpad" style="color:steelblue;"><span class="mord" style="color:steelblue;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6068416800000005em;"><span style="top:-5.69324168em;"><span class="pstrut" style="height:5.69324168em;"></span><span class="mord boxpad" style="color:steelblue;"><span class="mord" style="color:steelblue;"><span class="mord sizing reset-size6 size11" style="color:cadetblue;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9111100000000001em;"><span style="top:-4.188em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="stretchy colorbox" style="color:cadetblue;height:1.2111100000000001em;background-color:powderblue;"></span></span><span style="top:-4.4879999999999995em;"><span class="pstrut" style="height:4.4879999999999995em;"></span><span class="mord boxpad" style="color:cadetblue;"><span class="mord text" style="color:cadetblue;"><span class="mord texttt cjk_fallback" style="color:cadetblue;">神虎牌删犇器</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3em;"><span></span></span></span></span></span></span></span></span><span style="top:-4.6068416800000005em;"><span class="pstrut" style="height:5.69324168em;"></span><span class="stretchy fbox" style="color:steelblue;border-color:steelblue;height:3.6932416800000003em;"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.0863999999999998em;"><span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3863999999999999em;"><span></span></span></span></span></span></span></span></span></span></p>
-<h2 id="操作步骤">操作步骤</h2>
+        <content type="html"><![CDATA[<h2 id="操作步骤">操作步骤</h2>
 <ol>
 <li>
 <p>按下键盘上的 <code>f12</code> 按键。</p>
