@@ -56,91 +56,37 @@
         <main id="main" class="site-main" role="main">
             <article id="post-1270" class="post-1270 post type-post status-publish format-standard hentry category-90 category-129 tag-149">
                 <header class="entry-header">
-                    <h1 class="entry-title">C++中的endl（面向对象初体验）</h1>
-                    <p class="entry-census">发布于 2020-03-04</p>
+                    <h1 class="entry-title">题解 CF892A 【Greed】</h1>
+                    <p class="entry-census">发布于 2020-04-02</p>
                     <hr>
                 </header>
                 <div class="neko">
-                    <h1 id="1-endl的本质">1. endl的本质</h1>
-<p>自从在C语言的教科书中利用Hello world程序作为学习的起点之后，很多程序设计语言的教科书都沿用了这个做法。我们写过的第一个C++程序可能就是这样的。</p>
-<pre><code class="language-cpp">
-#include &lt;iostream&gt;
+                    <p>把所有可乐倒进2个罐子里，那么肯定是选最大的两个罐子，再和总可乐数比较即可。</p>
+<p>要自动排序又不会去重的数据结构当然选multiset</p>
+<p>具体用法见代码</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;
+multiset&lt;int&gt; a;//自动从小到大排序但不会去重的数据结构
 int main(){
-    cout&lt;&lt;&quot;Hello world&quot;&lt;&lt;endl;
+	long long tmp,n,sum=0;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;tmp;//输入可乐数并累加
+		sum+=tmp;
+	}
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;tmp;////由于空间大小是multiset自动分配的，只能先输入临时变量再通过insert函数插入
+		a.insert(tmp);
+	}
+	multiset&lt;int&gt;::iterator it=a.end();//因为是从小到大排序，所以最大的在结尾处
+	it--;//.end()函数返回的iterator是最后一个元素还要后面一个，所以真正最大的要-1，但multiset::iterator不支持除++和--以外的运算，所以用--运算
+	multiset&lt;int&gt;::iterator it2=it;//第二大
+	it2--;//同上
+	if(sum&lt;=(*it+*it2)) cout&lt;&lt;&quot;YES&quot;&lt;&lt;endl;//装得下（访问iterator指向的元素要加*）
+	else cout&lt;&lt;&quot;NO&quot;&lt;&lt;endl;//装不下
+	return 0;
 }
 </code></pre>
-<p>学习过C语言的人自然会把输出语句与C语言中的输出语句联系起来，也就是说：<br>
-<code>cout&lt;&lt;”Hello world”&lt;&lt;endl;</code>相当于<code>printf(“Hello world\n”);</code>由于endl会导致输出的文字换行，自然而然地我们会想到endl可能就是换行符’\n’。<br>
-但是，如果我们定义<code>char c=endl;</code>会得到一个编译错误，这说明 endl 并不是一个字符，所以应该到系统头文件中去查找 endl 的定义。通过VS2012转到定义，找到了 endl 的定义如下：</p>
-<pre><code class="language-cpp">template&lt;class _Elem,class _Traits&gt; inline basic_ostream&lt;_Elem, _Traits&gt;&amp;
-__CLRCALL_OR_CDECL endl(basic_ostream&lt;_Elem, _Traits&gt;&amp; _Ostr)
-{   // insert newline and flush stream
-    _Ostr.put(_Ostr.widen('\n'));
-    _Ostr.flush();
-    return (_Ostr);
-}
-</code></pre>
-<p>从定义中看出，endl是一个函数模板，它实例化之后变成一个模板函数，其作用如这个函数模板的注释所示，插入换行符并刷新输出流。其中刷新输出流指的是将缓冲区的数据全部传递到输出设备并将输出缓冲区清空。</p>
-<h1 id="coutendl的介绍">cout&lt;&lt;endl的介绍</h1>
-<p>endl是一个函数模板，再被使用时会实例化为模板函数。但是函数调用应该使用一对圆括号，也就是写成<code>endl()</code>的形式，而在语句<code>cout&lt;&lt;”Hello world”&lt;&lt;endl;</code>中并没有这样，原因何在？</p>
-<p>在头文件 iostream 中，有这样一条申明语句：<code>extern ostream&amp; cout；</code>这说明cout是一个ostream类对象。而 &lt;&lt; 原本是用于移位运算的操作符，在这里用于输出，说明它是一个经过重载的操作符函数。如果把 endl 当做一个模板函数，那么<code>cout&lt;&lt;endl</code>可以解释成<code>cout.operator&lt;&lt;(endl);</code>由于一个函数名代表一个函数的入口地址，所以在cout的所属类ostream中应该有一个<code>operator&lt;&lt;()</code>函数的重载形式接受一个函数指针做参数。</p>
-<p>查找ostream类的定义，发现其实是另一个类模板实例化之后生成的模板类，即：</p>
-<pre><code class="language-cpp">typedef basic_ostream&lt;char, char_traits&lt;char&gt; &gt; ostream;
-</code></pre>
-<p>所以，实际上应该在类模板basic_ostream中查找<code>operator&lt;&lt;()</code>的重载版本。在头文件ostream中查找 basic_ostream 的定义，发现其中<code>operator&lt;&lt;</code>作为成员函数被重载了17次，其中的一种：</p>
-<pre><code class="language-cpp">
-typedef basic_ostream&lt;_Elem, _Traits&gt; _Myt;
- 
-_Myt&amp; __CLR_OR_THIS_CALL operator&lt;&lt;(_Myt&amp; (__cdecl *_Pfn)(_Myt&amp;))
-{   // call basic_ostream manipulator
-    _DEBUG_POINTER(_Pfn);
-    return ((*_Pfn)(*this));
-}
-</code></pre>
-<p>在 ostream 类中，<code>operator&lt;&lt;</code>作为成员函数重载方式如下：</p>
-<pre><code class="language-cpp">ostream&amp; ostream::operator&lt;&lt;(ostream&amp; (*op)(ostream&amp;))  
-{  
-    return (*op)(*this);  
-} 
-</code></pre>
-<p>这个重载正好与endl函数的申明相匹配，所以 &lt;&lt; 后面是可以跟着 endl  。也就是说， cout 对象的 &lt;&lt; 操作符接收到 endl 函数的地址后会在重载的操作符函数内部调用 endl 函数，而 endl 函数会结束当前行并刷新输出缓冲区。</p>
-<p>为了证明 endl 是一个 函数模板，或者说 end l是一个经过隐式实例化之后的模板函数，我们把程序改造如下：</p>
-<pre><code class="language-cpp">
-#include &lt;iostream&gt;
-using namespace std;
-int main(){
-    cout&lt;&lt;&quot;Hello world&quot;&lt;&lt;&amp;endl;
-}
-</code></pre>
-<p>这个程序可以正常运行，并且结果完全同上一个程序。原因是对于一个函数而言，函数名本身就代表函数的入口地址，而函数名前加 &amp; 也代表函数的入口地址。</p>
-<h1 id="3endl其实是io操纵符">3.endl其实是IO操纵符</h1>
-<p>实际上， endl 被称为IO操纵符，也有翻译成<strong>IO算子</strong>的。IO操作符的本质是自由函数，他们并不封装在某个类的内部，使用时不采用显示的函数调用的形式。在<code>&lt; iostream&gt;</code>头文件中定义的操纵符有：</p>
-<pre><code>    endl:输出时插入换行符并刷新流
-    endls：输出时在字符 插入NULL作为尾符
-    flush：刷新缓冲区，把流从缓冲区输出到目标设备，并清空缓冲区
-    ws：输入时略去空白字符
-    dec：令IO数据按十进制格式
-    hex:令IO数据按十六进制格式
-    oct：令IO数据按八进制格式
-</code></pre>
-<p>在<code>&lt; iomanip&gt;</code>头文件中定义的操作符有：</p>
-<pre><code>    setbase(int)
-    resetiosflags(long)
-    setiosflags(long)
-    setfill(char)
-    setprecision(int)
-    setw(int)
-</code></pre>
-<p>这些格式控制符大致可以替代 ios 的格式函数成员的功能，且使用比较方便。例如，为了把整数345按16进制输出，可以采用两种方式：</p>
-<pre><code class="language-cpp">int i=345;
-cout.setf(ios::hex,ios::basefield);
-cout&lt;&lt;i&lt;&lt;endl;
-</code></pre>
-<p>or</p>
-<pre><code class="language-cpp">cout&lt;&lt;hex&lt;&lt;i&lt;&lt;endl;
-</code></pre>
-<p>可以看出采用格式操纵符比较方便，二者的区别主要在于：格式成员函数是标准输出对象 cout 的成员函数，因此在使用时必须和 cout 同时出现，而操纵符是自由函数，可以独立出现，使用格式成员函数要显示采用函数调用的形式，不能用IO运算符”&lt;&lt;”和”&gt;&gt;”形成链式操作。</p>
 
                 </div>
             </article>
@@ -150,20 +96,20 @@ cout&lt;&lt;i&lt;&lt;endl;
         <div class="mdui-container">
             <div class="mdui-row">
                 
-                <a href="https://zhanglinquan.github.io/post/di-yi-ci-zuo-gong-cheng-de-cheng-guo" class="mdui-ripple mdui-color-theme mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left">
+                <a href="https://zhanglinquan.github.io/post/ti-jie-cf230a-dragons" class="mdui-ripple mdui-color-theme mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left">
                     <div class="doc-footer-nav-text">
                         <i class="mdui-icon material-icons">arrow_back</i>
                         <span class="doc-footer-nav-direction mdui-hidden-xs-down">上一篇文章</span>
-                        <div class="doc-footer-nav-chapter mdui-hidden-xs-down">第一次做工程的成果</div>
+                        <div class="doc-footer-nav-chapter mdui-hidden-xs-down">题解 CF230A 【Dragons】</div>
                     </div>
                 </a>
                 
                 
-                <a href="https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua" class="mdui-ripple mdui-color-theme mdui-col-xs-10 mdui-col-sm-6 doc-footer-nav-right">
+                <a href="https://zhanglinquan.github.io/post/ben-xiao-xue-sheng-ju-ruo-de-di-yi-pian-ti-jie" class="mdui-ripple mdui-color-theme mdui-col-xs-10 mdui-col-sm-6 doc-footer-nav-right">
                     <div class="doc-footer-nav-text">
                         <i class="mdui-icon material-icons">arrow_forward</i>
                         <span class="doc-footer-nav-direction">下一篇文章</span>
-                        <div class="doc-footer-nav-chapter">从记忆化搜索到DP（动态规划）</div>
+                        <div class="doc-footer-nav-chapter">题解 CF653A 【Bear and Three Balls】</div>
                     </div>
                 </a>
                 

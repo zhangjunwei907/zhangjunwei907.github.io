@@ -56,101 +56,42 @@
         <main id="main" class="site-main" role="main">
             <article id="post-1270" class="post-1270 post type-post status-publish format-standard hentry category-90 category-129 tag-149">
                 <header class="entry-header">
-                    <h1 class="entry-title">本小学生蒟蒻的第一篇题解</h1>
-                    <p class="entry-census">发布于 2020-01-28</p>
+                    <h1 class="entry-title">题解 CF653A 【Bear and Three Balls】</h1>
+                    <p class="entry-census">发布于 2020-04-02</p>
                     <hr>
                 </header>
                 <div class="neko">
-                    <p>这道题非常简单，~~为什么呢？~~<s>因为老师讲的例题就是这个啊！</s></p>
-<p>OK，废话不多说，本小学生蒟蒻认为，用桶排序，俗称小学生排序（哪个老师取的<s>坏</s>好名字？），直接完成排序，在不管格内是几，就输出一个即可。</p>
-<p>why？见代码<br>
-抄袭必CE</p>
-<pre><code class="language-cpp">//注释中的代码是在a数组为bool情况下使用的
-#include&lt;bits/stdc++.h&gt;//万能头，不用白不用
+                    <p>思路：排序+去重，判断是否有连续的三个数</p>
+<p>看到既要排序还要去重，当然用set啦</p>
+<p>具体解释见代码</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;
-int a[10000000];//之所以不用bool是因为代码要有通用性，直接用模板（bool a[10000000]
+set&lt;int&gt; a;//这是一个自动排序+去重的数据结构
 int main(){
-    int n,s=0;//n是输入个数，s是输出个数
-  	bool f=false;//是否为第一个输出（防止多空格
-    int x;
-    cin&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;x;
-        a[x]++;//a[x]=!a[x]
-    }
-    for(int i=1;i&lt;=1000;i++){//1000是指最大数为1000（数组中记的是数字i的存在情况，而存在的最大数为1000）
-        if(a[i])//有这个数
-            s++；
-    }
-    cout&lt;&lt;s&lt;&lt;endl;
-    for(int i=1;i&lt;=1000;i++){
-        if(a[i]){//有这个数
-            if(f==0){//是第一个
-                cout&lt;&lt;i;
-                f=！f；
-            }
-            else
-                cout&lt;&lt;&quot; &quot;&lt;&lt;i;
-        }
-    }
-    cout&lt;&lt;endl;
-    return 0;
+	int n;
+	cin&gt;&gt;n;
+	int tmp;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;tmp;//由于空间大小是set自动分配的，只能先输入临时变量再通过insert函数插入
+		a.insert(tmp);
+	}
+	set&lt;int&gt;::iterator ed=a.end();//不直接用.end()的原因看下面for语句的解释
+	ed--;//由于set::iterator不能用-=运算符，只能分两次--
+	ed--;
+	for(set&lt;int&gt;::iterator it=a.begin();it!=ed;it++){//it为a.end()时it+1和+2处会越界，所以用前面相当于a.end()-2的iterator做边界
+		set&lt;int&gt;::iterator it2=it;//it+1，因为set::iterator不支持+=或+，所以定义两个iterator分别代表it+1和it+2
+		it2++;
+		set&lt;int&gt;::iterator it3=it2;//it+2，理由同上
+		it3++;
+		if(*it+1==*it2&amp;&amp;*it2+1==*it3){//判断是否为连续三个数（访问iterator指向的元素要加*）
+			cout&lt;&lt;&quot;YES&quot;&lt;&lt;endl;//满足
+			return 0;//结束
+		}
+	}
+	cout&lt;&lt;&quot;NO&quot;&lt;&lt;endl;//不满足
+	return 0;
 }
-
 </code></pre>
-<p>e.g</p>
-<p>来模拟一下程序是如何工作的</p>
-<p>输入：8</p>
-<p>1 1 1 2 3 3 6 5</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">i</th>
-<th style="text-align:left">1</th>
-<th style="text-align:left">2</th>
-<th style="text-align:left">3</th>
-<th style="text-align:left">4</th>
-<th style="text-align:left">5</th>
-<th style="text-align:left">6</th>
-<th style="text-align:left">7</th>
-<th style="text-align:left">8</th>
-<th style="text-align:left"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">a[i]</td>
-<td style="text-align:left">3</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">2</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left">0</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<p>目前程序执行了第一个循环</p>
-<p>开始第二个循环</p>
-<p>i=1 a[i]=true s++ s=1</p>
-<p>i=2 a[i]=true s++ s=2</p>
-<p>i=3 a[i]=true s++ s=3</p>
-<p>i=4 a[i]=false 啥也不干</p>
-<p>i=5 a[i]=true s++ s=4</p>
-<p>i=6 a[i]=true s++ s=5</p>
-<p>i=7 a[i]=false 啥也不干</p>
-<p>略（都是啥也不干）</p>
-<p>开始第三个循环<br>
-i=1 f=false a[i]=true 输出i f=true</p>
-<p>i=2 f=true a[i]=true 输出i</p>
-<p>i=3 f=true a[i]=true 输出i</p>
-<p>i=4 f=true a[i]=false 啥也不干</p>
-<p>i=5 f=true a[i]=true 输出i</p>
-<p>i=6 f=true a[i]=true 输出i</p>
-<p>i=7 a[i]=false 啥也不干</p>
-<p>略（都是啥也不干）</p>
 
                 </div>
             </article>
@@ -160,20 +101,20 @@ i=1 f=false a[i]=true 输出i f=true</p>
         <div class="mdui-container">
             <div class="mdui-row">
                 
-                <a href="https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua" class="mdui-ripple mdui-color-theme mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left">
+                <a href="https://zhanglinquan.github.io/post/ti-jie-cf892a-greed" class="mdui-ripple mdui-color-theme mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left">
                     <div class="doc-footer-nav-text">
                         <i class="mdui-icon material-icons">arrow_back</i>
                         <span class="doc-footer-nav-direction mdui-hidden-xs-down">上一篇文章</span>
-                        <div class="doc-footer-nav-chapter mdui-hidden-xs-down">从记忆化搜索到DP（动态规划）</div>
+                        <div class="doc-footer-nav-chapter mdui-hidden-xs-down">题解 CF892A 【Greed】</div>
                     </div>
                 </a>
                 
                 
-                <a href="https://zhanglinquan.github.io/post/递归" class="mdui-ripple mdui-color-theme mdui-col-xs-10 mdui-col-sm-6 doc-footer-nav-right">
+                <a href="https://zhanglinquan.github.io/post/shen-hu-pai-shan-ben-qi" class="mdui-ripple mdui-color-theme mdui-col-xs-10 mdui-col-sm-6 doc-footer-nav-right">
                     <div class="doc-footer-nav-text">
                         <i class="mdui-icon material-icons">arrow_forward</i>
                         <span class="doc-footer-nav-direction">下一篇文章</span>
-                        <div class="doc-footer-nav-chapter">递归</div>
+                        <div class="doc-footer-nav-chapter">神虎牌删犇器</div>
                     </div>
                 </a>
                 
