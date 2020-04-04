@@ -56,51 +56,45 @@
         <main id="main" class="site-main" role="main">
             <article id="post-1270" class="post-1270 post type-post status-publish format-standard hentry category-90 category-129 tag-149">
                 <header class="entry-header">
-                    <h1 class="entry-title">题解 SP11515 【BUSYMAN - I AM VERY BUSY】</h1>
-                    <p class="entry-census">发布于 2020-04-03</p>
+                    <h1 class="entry-title">题解 CF149A 【Business trip】</h1>
+                    <p class="entry-census">发布于 2020-04-04</p>
                     <hr>
                 </header>
                 <div class="neko">
-                    <p>这题是特别水的贪心，可以用自动排序的set实现</p>
-<p>主要思路：将所有活动按结束时间从小到大排序，能进行活动就进行，遇到不能的就结束</p>
+                    <p><strong>宣传本人<a href="http://yuygfgg.tk">博客</a></strong></p>
+<p>思路：贪心。要让浇水的月份最少，就要让每个浇水月收益最大，所以做法是先将每个月的收益从大到小排序，尽量在收益大的月份浇水。</p>
+<p>用multiset排序，每次取第i大累加直到满足要求即可</p>
 <pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;
-struct data{
-    int a,b;
-};
-class cmp{//比较函数类
-	public:
-        bool operator()(const data&amp; x,const data&amp; y){
-            if(x.b==y.b)//如果结束时间一样就按开始时间排
-        		return x.a&lt;y.a;
-    		return x.b&lt;y.b;//否则就按结束时间排
-        }
-};
-set&lt;data,cmp&gt; a;//自动按比较函数类排序
+multiset&lt;int&gt; a;
 int main(){
-	int n,t,ans,last;
-	cin&gt;&gt;n;
-	data tmp;
-	for(int i=1;i&lt;=n;i++){
-		cin&gt;&gt;t;
-		for(int j=1;j&lt;=t;j++){//由于空间大小是set自动分配的，只能先输入临时变量再通过insert函数插入
-			cin&gt;&gt;tmp.a&gt;&gt;tmp.b;
-			a.insert(tmp);
-		}
-		set&lt;data&gt;::iterator it=a.begin();//指向开始的迭代器
-		ans=0;//初始化
-		last=INT_MIN;
-		for(;it!=a.end();it++){
-			if((*it).a&gt;=last){//来得及
-				ans++;//能去的加一
-				//cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;ans&lt;&lt;&quot;eee&quot;&lt;&lt;(*it).a&lt;&lt;&quot; &quot;&lt;&lt;(*it).b&lt;&lt;endl;
-				last=(*it).b;//更新上一次的结束时间
-				
-			}
-		}
-		cout&lt;&lt;ans&lt;&lt;endl;
-		a.clear();//insert会插入，不会覆盖，所以要清空set
+	int n,tmp,d=0,s=0,k;
+	cin&gt;&gt;k;
+	for(int i=1;i&lt;=12;i++){
+		cin&gt;&gt;tmp;//输入临时变量再插入
+		a.insert(tmp);
 	}
+	if(k==0){//目标为0的话直接输出0
+		cout&lt;&lt;0&lt;&lt;endl;
+		return 0;
+	}
+	set&lt;int&gt;::iterator it=a.end();//指向最大值的iterator
+	it--;//.end()指向的是最大值还要后面一个，所以要--
+	for(;it!=a.begin();it--){
+		d+=*it;
+		s++;
+		if(d&gt;=k){//完成
+			cout&lt;&lt;s&lt;&lt;endl;
+			return 0;
+		}
+	}
+	d+=*it;//如果不补一次循环，第一个元素不会被遍历到
+	s++;
+	if(d&gt;=k){//完成
+		cout&lt;&lt;s&lt;&lt;endl;
+		return 0;
+	}
+	cout&lt;&lt;-1&lt;&lt;endl;//无法完成目标
 	return 0;
 }
 </code></pre>
@@ -113,20 +107,14 @@ int main(){
         <div class="mdui-container">
             <div class="mdui-row">
                 
-                <a href="https://zhanglinquan.github.io/post/ti-jie-cf919a-supermarket" class="mdui-ripple mdui-color-theme mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left">
-                    <div class="doc-footer-nav-text">
-                        <i class="mdui-icon material-icons">arrow_back</i>
-                        <span class="doc-footer-nav-direction mdui-hidden-xs-down">上一篇文章</span>
-                        <div class="doc-footer-nav-chapter mdui-hidden-xs-down">题解 CF919A 【Supermarket】</div>
-                    </div>
-                </a>
+                <div class="mdui-col-xs-2 mdui-col-sm-6 doc-footer-nav-left"></div>
                 
                 
-                <a href="https://zhanglinquan.github.io/post/ti-jie-cf230a-dragons" class="mdui-ripple mdui-color-theme mdui-col-xs-10 mdui-col-sm-6 doc-footer-nav-right">
+                <a href="https://zhanglinquan.github.io/post/ti-jie-cf919a-supermarket" class="mdui-ripple mdui-color-theme mdui-col-xs-10 mdui-col-sm-6 doc-footer-nav-right">
                     <div class="doc-footer-nav-text">
                         <i class="mdui-icon material-icons">arrow_forward</i>
                         <span class="doc-footer-nav-direction">下一篇文章</span>
-                        <div class="doc-footer-nav-chapter">题解 CF230A 【Dragons】</div>
+                        <div class="doc-footer-nav-chapter">题解 CF919A 【Supermarket】</div>
                     </div>
                 </a>
                 

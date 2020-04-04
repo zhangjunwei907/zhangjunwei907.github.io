@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhanglinquan.github.io</id>
     <title>张林铨的blog</title>
-    <updated>2020-04-03T08:11:26.575Z</updated>
+    <updated>2020-04-04T06:33:56.647Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhanglinquan.github.io"/>
     <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
@@ -10,6 +10,78 @@
     <logo>https://zhanglinquan.github.io/images/avatar.png</logo>
     <icon>https://zhanglinquan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 张林铨的blog</rights>
+    <entry>
+        <title type="html"><![CDATA[题解 CF149A 【Business trip】]]></title>
+        <id>https://zhanglinquan.github.io/post/ti-jie-cf149a-business-trip</id>
+        <link href="https://zhanglinquan.github.io/post/ti-jie-cf149a-business-trip">
+        </link>
+        <updated>2020-04-04T01:42:09.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>宣传本人<a href="http://yuygfgg.tk">博客</a></strong></p>
+<p>思路：贪心。要让浇水的月份最少，就要让每个浇水月收益最大，所以做法是先将每个月的收益从大到小排序，尽量在收益大的月份浇水。</p>
+<p>用multiset排序，每次取第i大累加直到满足要求即可</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+multiset&lt;int&gt; a;
+int main(){
+	int n,tmp,d=0,s=0,k;
+	cin&gt;&gt;k;
+	for(int i=1;i&lt;=12;i++){
+		cin&gt;&gt;tmp;//输入临时变量再插入
+		a.insert(tmp);
+	}
+	if(k==0){//目标为0的话直接输出0
+		cout&lt;&lt;0&lt;&lt;endl;
+		return 0;
+	}
+	set&lt;int&gt;::iterator it=a.end();//指向最大值的iterator
+	it--;//.end()指向的是最大值还要后面一个，所以要--
+	for(;it!=a.begin();it--){
+		d+=*it;
+		s++;
+		if(d&gt;=k){//完成
+			cout&lt;&lt;s&lt;&lt;endl;
+			return 0;
+		}
+	}
+	d+=*it;//如果不补一次循环，第一个元素不会被遍历到
+	s++;
+	if(d&gt;=k){//完成
+		cout&lt;&lt;s&lt;&lt;endl;
+		return 0;
+	}
+	cout&lt;&lt;-1&lt;&lt;endl;//无法完成目标
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[题解 CF919A 【Supermarket】]]></title>
+        <id>https://zhanglinquan.github.io/post/ti-jie-cf919a-supermarket</id>
+        <link href="https://zhanglinquan.github.io/post/ti-jie-cf919a-supermarket">
+        </link>
+        <updated>2020-04-03T12:45:37.000Z</updated>
+        <content type="html"><![CDATA[<p>思路：贪心，找单价最便宜的超市买即可</p>
+<p>用set从小到大排序</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+set&lt;long double&gt; c;//自动从小到大排序
+int main(){
+    int m,n;
+    int a,b;
+    cin&gt;&gt;m&gt;&gt;n;
+    for(int i=1;i&lt;=m;i++){
+        cin&gt;&gt;a&gt;&gt;b;
+        long double tmp=((long double)a/b);
+        c.insert(tmp*n*1.0);//插入（*1.0用来强制类型转换，否则插入set的数是向下取整的int）
+    }
+    set&lt;long double&gt;::iterator it=c.begin();//最便宜超市的单价
+    cout&lt;&lt;fixed&lt;&lt;setprecision(10)&lt;&lt;*it&lt;&lt;endl;//保留十位
+    return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 SP11515 【BUSYMAN - I AM VERY BUSY】]]></title>
         <id>https://zhanglinquan.github.io/post/ti-jie-sp11515-busyman-i-am-very-busy</id>
@@ -751,17 +823,6 @@ int main(){
     return 0;
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[递归]]></title>
-        <id>https://zhanglinquan.github.io/post/递归</id>
-        <link href="https://zhanglinquan.github.io/post/递归">
-        </link>
-        <updated>2019-10-24T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p>这节课学了递归，<s>好晕</s></p>
-<p>好不容易想通了一点赶紧记下，充当第一篇博客</p>
-<p>递归就是函数自己调用自己的过程。那为什么要有递归呢？原因很简单：在解决一个问题的同时，需要解决另一个与当前问题相同的问题，并且这个问题在特定情况下有解（递归结束条件），其他情况的答案都可由此答案推导而来（转移方程）。那又有问题了，为什么不用循环呢？观察上面的描述中“需要解决另一个与当前问题相同的问题”这一句话，真的只需要解决另一个吗？答案是否定的，有可能要解决多个同样的问题，这种情况下，如果使用循环，那么每个循环都要产生多个同样的循环，是无法实现的，所以才要使用递归。</p>
 ]]></content>
     </entry>
 </feed>
