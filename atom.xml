@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhanglinquan.github.io</id>
     <title>张林铨的blog</title>
-    <updated>2020-04-04T06:33:56.647Z</updated>
+    <updated>2020-04-04T09:56:11.804Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhanglinquan.github.io"/>
     <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
@@ -10,6 +10,42 @@
     <logo>https://zhanglinquan.github.io/images/avatar.png</logo>
     <icon>https://zhanglinquan.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 张林铨的blog</rights>
+    <entry>
+        <title type="html"><![CDATA[题解 AT2654 【[ARC078A] Splitting Pile】]]></title>
+        <id>https://zhanglinquan.github.io/post/ti-jie-at2654-arc078a-splitting-pile</id>
+        <link href="https://zhanglinquan.github.io/post/ti-jie-at2654-arc078a-splitting-pile">
+        </link>
+        <updated>2020-04-04T09:55:55.000Z</updated>
+        <content type="html"><![CDATA[<p>思路：暴力求出所有可能，排序求最小绝对值差。</p>
+<p>我用vector存储卡的信息，用set排序</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+vector&lt;long long&gt; a;
+set&lt;long long&gt; b;//自动从小到大排序
+long long s=0,x,y;
+int main(){
+	int n,tmp;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;tmp;//由于空间大小不定，只能用push_back函数放入
+		a.push_back(tmp);
+		s+=tmp;
+	}
+    //现在开始空间大小一定，可以用从0开始的下标访问
+	x=a[0];
+	y=s-a[0];
+	b.insert(abs(x-y));//插入第一个
+	for (int i=1;i&lt;n-1;i++){
+		x+=a[i];
+		y-=a[i];
+		b.insert(abs(x-y));//插入set
+	}
+	cout&lt;&lt;*b.begin()&lt;&lt;endl;//输出自动排序好的最小数
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[题解 CF149A 【Business trip】]]></title>
         <id>https://zhanglinquan.github.io/post/ti-jie-cf149a-business-trip</id>
@@ -649,178 +685,6 @@ int main(){
 		}
 	}
 	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[从记忆化搜索到DP（动态规划）]]></title>
-        <id>https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua</id>
-        <link href="https://zhanglinquan.github.io/post/cong-ji-yi-hua-sou-suo-sou-suo-dao-dpdong-tai-gui-hua">
-        </link>
-        <updated>2020-02-19T13:01:57.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="目录">目录</h1>
-<ul>
-<li>记忆化搜索是啥</li>
-<li>记忆化搜索和动态规划有啥关系</li>
-<li>动态规划做法</li>
-</ul>
-<h1 id="1-记忆化搜索是啥引入">1. 记忆化搜索是啥（引入</h1>
-<p>好，就以采药这道题为例，我不会动态规划，只会搜索，我就会直接写一个粗暴的 DFS :</p>
-<p>注: 为了方便食用, 本文中所有代码省略头文件</p>
-<pre><code class="language-cpp">int n,t;
-int tcost[103],mget[103];
-int ans=0;
-void dfs(int pos,int tleft,int tans){
-    if(tleft&lt;0) return;
-    if(pos==n+1){
-        ans=max(ans,tans);
-        return;
-    }
-    dfs(pos+1,tleft,tans);
-    dfs(pos+1,tleft-tcost[pos],tans+mget[pos]);
-}
-int main(){
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    dfs(1,t,0);
-    cout&lt;&lt;ans&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p>30pts</p>
-<p>然后我心血来潮, 想不借助任何 &quot;外部变量&quot;(就是 dfs 函数外且 值随 dfs 运行而改变的变量 ), 比如 ans</p>
-<p>把 ans 删了之后就有一个问题: 我们拿什么来记录答案?</p>
-<p>答案很简单:</p>
-<p>返回值!</p>
-<p>此时 dfs(pos,tleft) 返回在时间 tleft内采集 后 pos 个草药, 能获得的最大收益</p>
-<p>不理解就看看代码吧:</p>
-<pre><code class="language-cpp">int n,time;
-int tcost[103],mget[103];
-int dfs(int pos,int tleft){
-    if(pos==n+1)
-        return 0;
-    int dfs1,dfs2=-INF;
-    dfs1=dfs(pos+1,tleft);
-    if( tleft&gt;tcost[pos] )
-        dfs2=dfs(pos+1,tleft-tcost[pos])+mget[pos];
-    return max(dfs1,dfs2);
-}
-int main(){
-    cin&gt;&gt;time&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    cout&lt;&lt;dfs(1,time)&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p><s>还是30pts，我太难了</s><br>
-但这个时候, 我们的程序已经不依赖任何外部变量了.</p>
-<p>然后我非常无聊, 将所有 dfs 的返回值都记录下来, 竟然发现......</p>
-<pre><code>震惊, 对于相同的 pos 和 tleft,dfs 的返回值总是相同的!
-</code></pre>
-<p>想一想也不奇怪, 因为我们的 dfs 没有依赖任何外部变量.</p>
-<p>旁白: 像 tcost[103],mget[103] 这种东西不算是外部变量, 因为她们在 dfs 过程中不变.</p>
-<p>然后?</p>
-<p>开个数组 mem , 记录下来每个 dfs(pos,tleft) 的返回值. 刚开始把 mem 中每个值都设成 -1 (代表没访问过). 每次刚刚进入一个 dfs 前(我们的 dfs 是递归调用的嘛), 都检测 mem[pos][tleft]是否为 -1 , 如果是就正常执行并把答案记录到 mem 中, 否则?</p>
-<p>直接返回 mem 中的值!</p>
-<pre><code class="language-cpp">int n,t;
-int tcost[103],mget[103];
-int mem[103][1003];
-int dfs(int pos,int tleft){
-    if(mem[pos][tleft]!=-1) return mem[pos][tleft];
-    if(pos==n+1)
-        return mem[pos][tleft] = 0;
-    int dfs1,dfs2=-INF;
-    dfs1 = dfs(pos+1,tleft);
-    if(tleft&gt;=tcost[pos])
-        dfs2=dfs(pos+1,tleft-tcost[pos])+mget[pos];
-    return mem[pos][tleft]=max(dfs1,dfs2);
-}
-int main(){
-    memset(mem,-1,sizeof(mem));
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++)
-        cin&gt;&gt;tcost[i]&gt;&gt;mget[i];
-    cout&lt;&lt;dfs(1,t)&lt;&lt;endl;
-    return 0;
-}
-</code></pre>
-<p>此时 mem 的意义与 dfs 相同：</p>
-<pre><code>在时间 tleft内采集 后 pos 个草药, 能获得的最大收益
-</code></pre>
-<p>这能 ac?</p>
-<p>能. 这就是 &quot;采药&quot; 那题的 AC 代码</p>
-<p>好我们倒腾出了记忆化搜索</p>
-<p>总结一下记忆化搜索是啥:<br>
-不依赖任何 外部变量，答案以返回值的形式存在, 而不能以参数的形式存在(就是不能将 dfs 定义成 dfs(pos,tleft,nowans ), 这里面的 nowans 不符合要求).</p>
-<p>对于相同一组参数, dfs 返回值总是相同的</p>
-<h1 id="记忆化搜索与动态规划的关系分析">记忆化搜索与动态规划的关系:（分析</h1>
-<p>基本是朋 (ji) 友关系</p>
-<p>有人会问: 记忆化搜索难道不是搜索?</p>
-<p>一定程度上来说，她是搜索.但个人认为她更像dp</p>
-<p>其实说白了，记忆化搜索就是dp</p>
-<p>不信你看mem 的意义:</p>
-<p>在时间 tleft 内采集 后 pos 个草药, 能获得的最大收益</p>
-<p>这不就是dp的状态?</p>
-<p>由上面的代码中可以看出:</p>
-<p>dfs(pos,left) = max(dfs(pos+1,tleft-tcost[pos])+mget[pos] , dfs(pos+1,tleft))<br>
-即为</p>
-<p>mem[pos][tleft] = max(mem[pos+1][tleft-tcost[pos]]+mget[pos] , mem[pos+1][tleft])<br>
-这不就是dp的状态转移?</p>
-<p>总结一下：</p>
-<pre><code>记忆化搜索和动态规划从根本上来讲就是一个东西,**(印象中)任何一个 dp 方程都能转为记忆化搜索 ，反之亦然（为什么？见下文“体现在”的第四条）
-</code></pre>
-<p>体现在</p>
-<ul>
-<li>
-<p>根据记忆化搜索的参数可以直接得到dp的状态，反之亦然</p>
-</li>
-<li>
-<p>根据记忆化搜索的递归关系可以写出状态转移方程，这个方程可以直接写出循环式的dp，只不过是反的(想想为什么？)，反之亦然</p>
-</li>
-<li>
-<p>大部分记忆化搜索时空复杂度与 不加优化的 dp 完全相同</p>
-</li>
-<li>
-<p><strong>最重要的一点：二者思想类似！！ 核心思想均为：利用对于相同参数答案相同的特性，对于相同的参数（循环式的dp体现为数组下标），记录其答案，免去重复计算，从而起到优化时间复杂度的作用。这，便是二者的精髓。</strong></p>
-</li>
-</ul>
-<p>建议好好想想第四条。记住，学一个算法，一定要理解他的精髓。</p>
-<p>举个栗子:</p>
-<p>dp[i][j][k] = dp[i+1][j+1][k-a[j]] + dp[i+1][j][k]<br>
-转为</p>
-<pre><code class="language-cpp">int dfs(int i,int j,int k){
-    边界条件
-    if( mem[i][j][k]!=-1) return mem[i][j][k];
-    return mem[i][j][k]=dfs(i+1,j+1,k-a[j])+dfs(i+1,j,k);
-}
-int main(){
-    memset(mem,-1,sizeof(mem));
-    读入
-    cout&lt;&lt;dfs(1,0,0)&lt;&lt;endl;
-}
-</code></pre>
-<p>二者满足上面提到的所有关系</p>
-<h1 id="dp做法">dp做法</h1>
-<p><s>上面转移方程都出来了，还不会？？</s></p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-#include&lt;cmath&gt;
-using namespace std;
-int f[1001],n,t,v[101],w[101];
-int main(){
-    cin&gt;&gt;t&gt;&gt;n;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;w[i]&gt;&gt;v[i];
-    }
-    for(int i=1;i&lt;=n;i++){
-        for(int j=t;j&gt;=w[i];j--) {
-            f[j]=max(f[j-w[i]]+v[i], f[j]);
-        }
-    }
-    cout&lt;&lt;f[t];
-    return 0;
 }
 </code></pre>
 ]]></content>
