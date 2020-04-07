@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhanglinquan.github.io</id>
-    <title>张林铨的blog</title>
-    <updated>2020-04-07T03:35:20.620Z</updated>
+    <title>yuygfgg的blog</title>
+    <updated>2020-04-07T04:44:05.546Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhanglinquan.github.io"/>
     <link rel="self" href="https://zhanglinquan.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://zhanglinquan.github.io/images/avatar.png</logo>
     <icon>https://zhanglinquan.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, 张林铨的blog</rights>
+    <rights>All rights reserved 2020, yuygfgg的blog</rights>
     <entry>
         <title type="html"><![CDATA[题解 AT2654 【[ARC078A] Splitting Pile】]]></title>
         <id>https://zhanglinquan.github.io/post/ti-jie-at2654-arc078a-splitting-pile</id>
